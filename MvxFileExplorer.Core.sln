@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvxFileExplorer.Core", "MvxFileExplorer.Core\MvxFileExplorer.Core.csproj", "{15A112A8-AD5D-4219-8C58-A1FE74FE0170}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvxFileExplorer.Wpf", "MvxFileExplorer.Wpf\MvxFileExplorer.Wpf.csproj", "{CF9C8A14-582F-4001-AF33-658C7FF1270A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15A112A8-AD5D-4219-8C58-A1FE74FE0170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A112A8-AD5D-4219-8C58-A1FE74FE0170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A112A8-AD5D-4219-8C58-A1FE74FE0170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A112A8-AD5D-4219-8C58-A1FE74FE0170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF9C8A14-582F-4001-AF33-658C7FF1270A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF9C8A14-582F-4001-AF33-658C7FF1270A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF9C8A14-582F-4001-AF33-658C7FF1270A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF9C8A14-582F-4001-AF33-658C7FF1270A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {74555B3D-037D-48A8-BB77-33A9D07F101B}
+	EndGlobalSection
+EndGlobal
