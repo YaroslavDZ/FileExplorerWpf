@@ -43,7 +43,7 @@
         </StackPanel>
 
         <ContentControl Content="{Binding DirectoryViewModel}" ContentTemplate="{StaticResource DirectoryViewTemplate}" />
-
+        <TreeView x:Name="treeViewItem" Grid.Row="2" Grid.ColumnSpan="1" Width="300" Grid.RowSpan="2" Grid.Column="1"/>
     </Grid>
 </views:MvxWpfView>
 

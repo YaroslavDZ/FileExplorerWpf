@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Platforms.Wpf.Views;
+using MvxFileExplorer.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,6 +26,7 @@ namespace MvxFileExplorer.Wpf.Views
         public DirectoryView()
         {
             InitializeComponent();
+
             LoadFileSystem("C:\\Users\\ydzys\\CodeProjects", treeViewItem.Items);
         }
 
