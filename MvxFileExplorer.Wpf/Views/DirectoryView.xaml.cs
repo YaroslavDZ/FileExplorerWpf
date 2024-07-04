@@ -26,8 +26,8 @@ namespace MvxFileExplorer.Wpf.Views
         public DirectoryView()
         {
             InitializeComponent();
-
-            LoadFileSystem("C:\\Users\\ydzys\\CodeProjects", treeViewItem.Items);
+            DataContext = new DirectoryViewModel(new Core.Models.DirectoryModel());
+            LoadFileSystem("C:\\Users", treeViewItem.Items);
         }
 
         private void LoadFileSystem(string path, ItemCollection items)
