@@ -11,15 +11,19 @@ namespace MvxFileExplorer.Core.Models
 {
     public class DirectoryItemModel
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public string Path { get; set; }
+        public string Path { get; set; } = string.Empty;
+
+        public long Size { get; set; }
+
+        public DateTime? CreationDate { get; set; }
 
         public ItemType ItemType { get; set; }
 
         public bool IsSelected { get; set; }
 
-        public MvxObservableCollection<DirectoryItemModel> Children { get; set; }
+        public MvxObservableCollection<DirectoryItemModel>? Children { get; set; }
 
     }
 

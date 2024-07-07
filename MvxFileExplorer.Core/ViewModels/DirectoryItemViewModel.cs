@@ -39,6 +39,32 @@ namespace MvxFileExplorer.Core.ViewModels
             }
         }
 
+        public DateTime? CreationDate
+        {
+            get => _item.CreationDate;
+            set
+            {
+                if (_item.CreationDate != value)
+                {
+                    _item.CreationDate = value;
+                    RaisePropertyChanged(() => CreationDate);
+                }
+            }
+        }
+
+        public long Size
+        {
+            get => _item.Size;
+            set
+            {
+                if (_item.Size != value)
+                {
+                    _item.Size = value;
+                    RaisePropertyChanged(() => Size);
+                }
+            }
+        }
+
         public bool IsSelected
         {
             get => _item.IsSelected;
