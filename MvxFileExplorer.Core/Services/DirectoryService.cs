@@ -10,15 +10,15 @@ namespace MvxFileExplorer.Core.Services
 {
     public class DirectoryService
     {
-        public ObservableCollection<DirectoryModel> GetRootDirectories()
+        public ObservableCollection<DirectoryItemModel> GetRootDirectories()
         {
             var drives = Directory.GetLogicalDrives();
-            var directories = new ObservableCollection<DirectoryModel>();
+            var directories = new ObservableCollection<DirectoryItemModel>();
 
             foreach (var drive in drives)
             {
                 var directoryInfo = new DirectoryInfo(drive);
-                directories.Add(new DirectoryModel
+                directories.Add(new DirectoryItemModel
                 {
                     Name = directoryInfo.Name,
                     Path = directoryInfo.FullName,
@@ -28,7 +28,7 @@ namespace MvxFileExplorer.Core.Services
             return directories;
         }
 
-        public FileModel CreateFile(string directoryPath, string fileName)
+        public DirectoryItemModel CreateFile(string directoryPath, string fileName)
         {
             var filePath = Path.Combine(directoryPath, fileName);
             using (var fileStream = File.Create(filePath))
@@ -38,11 +38,10 @@ namespace MvxFileExplorer.Core.Services
 
             var fileInfo = new FileInfo(filePath);
 
-            return new FileModel
+            return new DirectoryItemModel
             {
                 Name = fileInfo.Name,
                 Path = fileInfo.FullName,
-                Size = fileInfo.Length
             };
         }
 
@@ -71,14 +70,14 @@ namespace MvxFileExplorer.Core.Services
             Console.WriteLine($"The file was deleted: {filePath}");
         }
 
-        private ObservableCollection<DirectoryModel> GetDirectories(string path)
+        private ObservableCollection<DirectoryItemModel> GetDirectories(string path)
         {
-            var directories = new ObservableCollection<DirectoryModel>();
+            var directories = new ObservableCollection<DirectoryItemModel>();
             var directoryInfo = new DirectoryInfo(path);
 
             foreach (var directory in directoryInfo.GetDirectories())
             {
-                directories.Add(new DirectoryModel
+                directories.Add(new DirectoryItemModel
                 {
                     Name = directory.Name,
                     Path = directory.FullName,
@@ -88,18 +87,17 @@ namespace MvxFileExplorer.Core.Services
             return directories;
         }
 
-        private ObservableCollection<FileModel> GetFiles(string path)
+        private ObservableCollection<DirectoryItemModel> GetFiles(string path)
         {
-            var files = new ObservableCollection<FileModel>();
+            var files = new ObservableCollection<DirectoryItemModel>();
             var directoryInfo = new DirectoryInfo(path);
 
             foreach (var file in directoryInfo.GetFiles())
             {
-                files.Add(new FileModel
+                files.Add(new DirectoryItemModel
                 {
                     Name = file.Name,
                     Path = file.FullName,
-                    Size = file.Length
                 });
             }
 

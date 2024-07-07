@@ -17,7 +17,7 @@ namespace MvxFileExplorer.Core.ViewModels
     {
         private readonly DirectoryService _directoryService;
         private DirectoryViewModel _selectedDirectory;
-        private FileListViewModel _selectedFile;
+        private FileViewModel _selectedFile;
 
         private DirectoryViewModel _directoryViewModel;
 
@@ -27,7 +27,7 @@ namespace MvxFileExplorer.Core.ViewModels
             set => SetProperty(ref _directoryViewModel, value);
         }
 
-        public FileListViewModel SelectedFile
+        public FileViewModel SelectedFile
         {
             get => _selectedFile;
             set => SetProperty(ref _selectedFile, value);
@@ -50,7 +50,7 @@ namespace MvxFileExplorer.Core.ViewModels
 
             NavigateCommand = new MvxCommand<DirectoryViewModel>(Navigate);
 
-            DirectoryViewModel = new DirectoryViewModel(new DirectoryModel());
+            DirectoryViewModel = new DirectoryViewModel(new DirectoryItemModel());
         }
 
         private void Navigate(DirectoryViewModel directory)

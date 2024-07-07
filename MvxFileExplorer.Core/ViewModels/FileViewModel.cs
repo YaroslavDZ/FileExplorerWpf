@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 
 namespace MvxFileExplorer.Core.ViewModels
 {
-    public class FileListViewModel : MvxViewModel
+    public class FileViewModel : MvxViewModel
     {
-        public MvxObservableCollection<DirectoryItemViewModel> _items {  get; set; } = new MvxObservableCollection<DirectoryItemViewModel>();
+        public MvxObservableCollection<DirectoryItemModel> _items {  get; set; } = new MvxObservableCollection<DirectoryItemModel>();
 
     }
 }

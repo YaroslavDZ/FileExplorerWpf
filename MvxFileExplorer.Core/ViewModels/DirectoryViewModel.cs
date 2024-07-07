@@ -13,9 +13,9 @@ namespace MvxFileExplorer.Core.ViewModels
 {
     public class DirectoryViewModel : MvxViewModel
     {
-        private readonly DirectoryModel _directoryModel;
+        private readonly DirectoryItemModel _directoryModel;
         private MvxObservableCollection<DirectoryViewModel> _directories;
-        private MvxObservableCollection<FileListViewModel> _files;
+        private MvxObservableCollection<FileViewModel> _files;
 
         public string Name
         {
@@ -47,7 +47,7 @@ namespace MvxFileExplorer.Core.ViewModels
 
         public ICommand LoadFileSystemCommand { get; }
 
-        public DirectoryViewModel(DirectoryModel directory)
+        public DirectoryViewModel(DirectoryItemModel directory)
         {
             _directoryModel = directory;
             LoadFileSystemCommand = new MvxCommand<string>(LoadFileSystem);
