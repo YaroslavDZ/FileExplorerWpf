@@ -27,10 +27,10 @@ namespace MvxFileExplorer.Wpf.Views
         {
             InitializeComponent();
             DataContext = new DirectoryViewModel(new Core.Models.DirectoryModel());
-            LoadFileSystem("C:\\Users", treeViewItem.Items);
+            /*LoadFileSystem("C:\\Users", treeViewItem.Items);*/
         }
 
-        private void LoadFileSystem(string path, ItemCollection items)
+/*        private void LoadFileSystem(string path, ItemCollection items)
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
 
@@ -61,6 +61,11 @@ namespace MvxFileExplorer.Wpf.Views
             {
 
             }
+        }*/
+
+        private void treeViewItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
         }
     }
 }

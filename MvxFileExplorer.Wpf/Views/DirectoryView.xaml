@@ -28,7 +28,16 @@
         </Grid.ColumnDefinitions>
 
 
-        <TreeView x:Name="treeViewItem" Grid.Row="2" Grid.ColumnSpan="1" Width="300" Grid.RowSpan="2" Grid.Column="1"/>
-        
+        <TreeView x:Name="treeViewItem" Grid.Row="2" Grid.ColumnSpan="1" Width="300" Grid.RowSpan="2" Grid.Column="1"
+                  ItemsSource="{Binding Items, Mode=OneWay}"
+                  SelectedItemChanged="treeViewItem_SelectedItemChanged">
+
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type vm:DirectoryItemViewModel}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Name}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+
     </Grid>
 </views:MvxWpfView>

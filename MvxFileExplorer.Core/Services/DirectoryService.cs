@@ -22,8 +22,6 @@ namespace MvxFileExplorer.Core.Services
                 {
                     Name = directoryInfo.Name,
                     Path = directoryInfo.FullName,
-                    Files = new ObservableCollection<FileModel>(),
-                    Directories = GetDirectories(directoryInfo.FullName)
                 });
             }
 
@@ -84,8 +82,6 @@ namespace MvxFileExplorer.Core.Services
                 {
                     Name = directory.Name,
                     Path = directory.FullName,
-                    Files = GetFiles(directory.FullName),
-                    Directories = GetDirectories(directory.FullName)
                 });
             }
 
