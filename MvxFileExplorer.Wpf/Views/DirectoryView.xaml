@@ -28,18 +28,20 @@
         </Grid.ColumnDefinitions>
 
         <TreeView x:Name="treeViewItem" Grid.Row="2" Grid.ColumnSpan="1" Width="300" Grid.RowSpan="2" Grid.Column="1"
-
-                  SelectedItemChanged="treeViewItem_SelectedItemChanged">
-
+                  ItemsSource="{Binding Items}" SelectedItemChanged="treeViewItem_SelectedItemChanged">
             <TreeView.ItemTemplate>
-                
                 <HierarchicalDataTemplate DataType="{x:Type vm:DirectoryItemViewModel}" ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../Images/folder.jpg" Width="30" Height="30"></Image>
+                        <Image Source="{Binding ImagePath}" Width="25" Height="25"></Image>
                         <TextBlock Text="{Binding Name}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </TreeView.ItemContainerStyle>
         </TreeView>
 
     </Grid>

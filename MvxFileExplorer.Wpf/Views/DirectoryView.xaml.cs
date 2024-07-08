@@ -27,41 +27,40 @@ namespace MvxFileExplorer.Wpf.Views
         {
             InitializeComponent();
             DataContext = new DirectoryViewModel(new Core.Models.DirectoryItemModel());
-            LoadFileSystem("C:\\Users\\ydzys", treeViewItem.Items);
         }
 
-        private void LoadFileSystem(string path, ItemCollection items)
-        {
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+        //private void LoadFileSystem(string path, ItemCollection items)
+        //{
+        //    DirectoryInfo directoryInfo = new DirectoryInfo(path);
 
-            try
-            {
-                foreach (var directory in directoryInfo.GetDirectories())
-                {
-                    TreeViewItem directoryItem = new TreeViewItem
-                    {
-                        Header = directory.Name,
-                        Tag = directory.FullName,
-                    };
-                    items.Add(directoryItem);
-                    LoadFileSystem(directory.FullName, directoryItem.Items);
-                }
+        //    try
+        //    {
+        //        foreach (var directory in directoryInfo.GetDirectories())
+        //        {
+        //            TreeViewItem directoryItem = new TreeViewItem
+        //            {
+        //                Header = directory.Name,
+        //                Tag = directory.FullName,
+        //            };
+        //            items.Add(directoryItem);
+        //            LoadFileSystem(directory.FullName, directoryItem.Items);
+        //        }
 
-                foreach (var file in directoryInfo.GetFiles())
-                {
-                    TreeViewItem fileItem = new TreeViewItem
-                    {
-                        Header = file.Name,
-                        Tag = file.FullName
-                    };
-                    items.Add(fileItem);
-                }
-            }
-            catch (UnauthorizedAccessException e)
-            {
+        //        foreach (var file in directoryInfo.GetFiles())
+        //        {
+        //            TreeViewItem fileItem = new TreeViewItem
+        //            {
+        //                Header = file.Name,
+        //                Tag = file.FullName
+        //            };
+        //            items.Add(fileItem);
+        //        }
+        //    }
+        //    catch (UnauthorizedAccessException e)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
         private void treeViewItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {

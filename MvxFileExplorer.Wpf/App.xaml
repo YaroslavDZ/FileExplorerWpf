@@ -15,6 +15,8 @@
         </DataTemplate>
         <DataTemplate x:Key="DirectoryViewTemplate" DataType="{x:Type vm:DirectoryViewModel}">
         </DataTemplate>
+        <DataTemplate x:Key="FileViewTemplate" DataType="{x:Type vm:FileViewModel}">
+        </DataTemplate>
     </Application.Resources>
 
 </views:MvxApplication>

@@ -28,48 +28,6 @@ namespace MvxFileExplorer.Core.Services
             return directories;
         }
 
-        public DirectoryItemModel CreateFile(string directoryPath, string fileName)
-        {
-            var filePath = Path.Combine(directoryPath, fileName);
-            using (var fileStream = File.Create(filePath))
-            {
-                // File created
-            }
-
-            var fileInfo = new FileInfo(filePath);
-
-            return new DirectoryItemModel
-            {
-                Name = fileInfo.Name,
-                Path = fileInfo.FullName,
-            };
-        }
-
-        public void RenameFile(string filePath, string newName)
-        {
-            var directory = Path.GetDirectoryName(filePath);
-            if (directory == null) return;
-
-            var newFilePath = Path.Combine(directory, newName);
-            File.Move(filePath, newFilePath);
-
-            Console.WriteLine($"The file was renamed from {filePath} to {newFilePath}");
-        }
-
-        public void CopyFile(string sourcePath, string destinationPath)
-        {
-            File.Copy(sourcePath, destinationPath);
-
-            Console.WriteLine($"The file was copied from {sourcePath} to {destinationPath}");
-        }
-
-        public void DeleteFile(string filePath)
-        {
-            File.Delete(filePath);
-
-            Console.WriteLine($"The file was deleted: {filePath}");
-        }
-
         private ObservableCollection<DirectoryItemModel> GetDirectories(string path)
         {
             var directories = new ObservableCollection<DirectoryItemModel>();

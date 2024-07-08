@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Platforms.Wpf.Views;
+using MvxFileExplorer.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace MvxFileExplorer.Wpf.Views
         public FileView()
         {
             InitializeComponent();
+            DataContext = new DirectoryViewModel(new Core.Models.DirectoryItemModel());
         }
     }
 }
