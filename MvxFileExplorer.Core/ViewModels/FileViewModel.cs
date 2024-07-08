@@ -10,11 +10,8 @@ namespace MvxFileExplorer.Core.ViewModels
     {
         public MvxObservableCollection<DirectoryItemModel> Items {  get; set; } = new MvxObservableCollection<DirectoryItemModel>();
 
-        public DirectoryViewModel DirectoryViewModel { get; set; }
-
         public FileViewModel(DirectoryViewModel directoryViewModel)
         {
-            DirectoryViewModel = directoryViewModel;
         }
     }
 }

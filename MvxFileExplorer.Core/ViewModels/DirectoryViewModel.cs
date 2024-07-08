@@ -16,7 +16,7 @@ namespace MvxFileExplorer.Core.ViewModels
 {
     public class DirectoryViewModel : MvxViewModel
     {
-        private readonly DirectoryItemModel _directoryModel;
+        private DirectoryItemModel _directoryModel;
         private MvxObservableCollection<DirectoryViewModel> _directories;
         private MvxObservableCollection<FileViewModel> _files;
 
@@ -59,6 +59,19 @@ namespace MvxFileExplorer.Core.ViewModels
             }
         }
 
+        public DirectoryItemModel SelectedItem
+        {
+            get => _directoryModel.SelectedItem;
+            set
+            {
+                if (_directoryModel.SelectedItem != value)
+                {
+                    _directoryModel.SelectedItem = value;
+                    RaisePropertyChanged(() => SelectedItem);
+                }
+            }
+        }
+
         public MvxObservableCollection<DirectoryItemModel> Items { get; set; } = new MvxObservableCollection<DirectoryItemModel>();
 
         public ICommand SelectItemCommand { get; }
@@ -71,9 +84,9 @@ namespace MvxFileExplorer.Core.ViewModels
             LoadItems("C:\\Users\\ydzys");
         }
 
-        public void SelectItem()
+        public void OpenItem()
         {
-
+            LoadItems(SelectedItem.Path);
         }
 
         public void LoadItems(string rootPath)

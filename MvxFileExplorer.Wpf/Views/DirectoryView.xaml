@@ -27,10 +27,10 @@
             <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TreeView x:Name="treeViewItem" Grid.Row="2" Grid.ColumnSpan="1" Width="300" Grid.RowSpan="2" Grid.Column="1"
-                  ItemsSource="{Binding Items}" SelectedItemChanged="treeViewItem_SelectedItemChanged">
+        <TreeView x:Name="TreeViewItem" Grid.Row="2" Grid.ColumnSpan="1" Width="300" Grid.RowSpan="2" Grid.Column="1"
+                  ItemsSource="{Binding Items, Mode=TwoWay}" SelectedItemChanged="treeViewItem_SelectedItemChanged">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type vm:DirectoryItemViewModel}" ItemsSource="{Binding Children}">
+                <HierarchicalDataTemplate DataType="{x:Type vm:DirectoryItemViewModel}" ItemsSource="{Binding Children, Mode=TwoWay}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding ImagePath}" Width="25" Height="25"></Image>
                         <TextBlock Text="{Binding Name}" />

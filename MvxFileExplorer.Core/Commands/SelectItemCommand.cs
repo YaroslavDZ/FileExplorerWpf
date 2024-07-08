@@ -27,7 +27,7 @@ namespace MvxFileExplorer.Core.Commands
 
         public void Execute(object? parameter)
         {
-            DirectoryViewModel.SelectItem();
+            DirectoryViewModel.OpenItem();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Platforms.Wpf.Views;
+using MvxFileExplorer.Core.Models;
 using MvxFileExplorer.Core.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -64,7 +65,7 @@ namespace MvxFileExplorer.Wpf.Views
 
         private void treeViewItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
+            (DataContext as DirectoryViewModel).SelectedItem = (e.NewValue as DirectoryItemModel);
         }
     }
 }

@@ -7,8 +7,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MvxFileExplorer.Wpf.Views"
-             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:MvxFileExplorer.Wpf.Views" d:DataContext="{d:DesignInstance Type=vm:DirectoryViewModel}"
+    mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -27,13 +27,24 @@
             <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.Row="2" Grid.Column="3">
-            <ListViewItem>
-                <StackPanel Orientation="Vertical">
-                    <Image Source="/Images/folder.png" Width="30" Height="30" Grid.Row="0"></Image>
-                    <TextBlock Text="Heloo" Grid.Row="1"/>
-                </StackPanel>
-            </ListViewItem>
+        <ListView x:Name="ListViewItems" ItemsSource="{Binding SelectedItem.Children, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" SelectedValue="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:DirectoryItemViewModel}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Source="{Binding ImagePath}" Width="30" Height="30" Grid.Row="0"></Image>
+                        <TextBlock Text="{Binding Name}" Grid.Row="1"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" >
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </views:MvxWpfView>

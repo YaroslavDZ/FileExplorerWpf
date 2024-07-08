@@ -41,6 +41,8 @@ namespace MvxFileExplorer.Core.Models
 
         public bool IsSelected { get; set; }
 
+        public DirectoryItemModel SelectedItem { get; set; }
+
         public MvxObservableCollection<DirectoryItemModel>? Children { get; set; } = new MvxObservableCollection<DirectoryItemModel>();
 
     }
