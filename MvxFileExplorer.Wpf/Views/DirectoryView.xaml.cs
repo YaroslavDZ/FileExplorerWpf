@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MvxFileExplorer.Wpf.Views
 {
@@ -28,6 +29,18 @@ namespace MvxFileExplorer.Wpf.Views
         {
             InitializeComponent();
             DataContext = new DirectoryViewModel(new Core.Models.DirectoryItemModel());
+        }
+
+        private void TreeViewItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var viewModel = DataContext as DirectoryViewModel;
+            if (viewModel != null)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    viewModel.SelectedItem = e.NewValue as DirectoryItemModel;
+                });
+            }
         }
 
         //private void LoadFileSystem(string path, ItemCollection items)
@@ -62,10 +75,5 @@ namespace MvxFileExplorer.Wpf.Views
 
         //    }
         //}
-
-        private void treeViewItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            (DataContext as DirectoryViewModel).SelectedItem = (e.NewValue as DirectoryItemModel);
-        }
     }
 }

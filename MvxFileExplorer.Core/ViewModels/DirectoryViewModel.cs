@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using MvxFileExplorer.Core.Commands;
+using MvxFileExplorer.Core.Interfaces;
 using MvxFileExplorer.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,15 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MvxFileExplorer.Core.ViewModels
 {
     public class DirectoryViewModel : MvxViewModel
     {
         private DirectoryItemModel _directoryModel;
-        private MvxObservableCollection<DirectoryViewModel> _directories;
-        private MvxObservableCollection<FileViewModel> _files;
+        private readonly IDirectoryHistory _directoryHistory;
+        public const string ROOTPATH = "C:\\Users\\ydzys";
 
         public string Name
         {
@@ -38,6 +40,11 @@ namespace MvxFileExplorer.Core.ViewModels
             get => _directoryModel.Path;
             set
             {
+                if (_directoryModel.Path is null)
+                {
+                    _directoryModel.Path = ROOTPATH;
+                    RaisePropertyChanged(() => Path);
+                }
                 if (_directoryModel.Path != value)
                 {
                     _directoryModel.Path = value;
@@ -68,6 +75,7 @@ namespace MvxFileExplorer.Core.ViewModels
                 {
                     _directoryModel.SelectedItem = value;
                     RaisePropertyChanged(() => SelectedItem);
+
                 }
             }
         }
@@ -76,13 +84,57 @@ namespace MvxFileExplorer.Core.ViewModels
 
         public ICommand SelectItemCommand { get; }
 
+        public RelayCommand MoveBackCommand { get; }
+
+        public RelayCommand MoveForwardCommand { get; }
+
         public DirectoryViewModel(DirectoryItemModel directory)
         {
             _directoryModel = directory;
+            _directoryHistory = new DirectoryHistory(ROOTPATH, ROOTPATH);
   
             SelectItemCommand = new SelectItemCommand(this);
-            LoadItems("C:\\Users\\ydzys");
+
+            MoveBackCommand = new RelayCommand(OnMoveBack, OnCanMoveBack);
+            MoveForwardCommand = new RelayCommand(OnMoveForward, OnCanMoveForward);
+
+            _directoryHistory.HistoryChanged += History_HistoryChanged;
+
+            LoadItems(ROOTPATH);
         }
+
+        private void History_HistoryChanged(object sender, EventArgs e)
+        {
+            MoveBackCommand?.RaiseCanExecuteChanged();
+            MoveForwardCommand?.RaiseCanExecuteChanged();
+
+        }
+
+        public void OnMoveBack(object parameter)
+        {
+            _directoryHistory.MoveBack();
+
+            var current = _directoryHistory.CurrentItem;
+
+            SelectedItem = Items.First(item => item.Path == current.Path && item.Name == current.Name);
+            Path = current.Path;
+            Name = current.Name;
+        }
+
+        public bool OnCanMoveBack(object obj) => _directoryHistory.CanMoveBack;
+
+        public void OnMoveForward(object parameter)
+        {
+            _directoryHistory.MoveForward();
+
+            var current = _directoryHistory.CurrentItem;
+
+            SelectedItem = Items.First(item => item.Path == current.Path && item.Name == current.Name);
+            Path = current.Path;
+            Name = current.Name;
+        }
+
+        public bool OnCanMoveForward(object obj) => _directoryHistory.CanMoveForward;
 
         public void OpenItem()
         {

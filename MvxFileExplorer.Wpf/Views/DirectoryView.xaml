@@ -7,8 +7,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MvxFileExplorer.Wpf.Views"
-             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:MvxFileExplorer.Wpf.Views" d:DataContext="{d:DesignInstance Type=vm:DirectoryViewModel}"
+    mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -28,7 +28,7 @@
         </Grid.ColumnDefinitions>
 
         <TreeView x:Name="TreeViewItem" Grid.Row="2" Grid.ColumnSpan="1" Width="300" Grid.RowSpan="2" Grid.Column="1"
-                  ItemsSource="{Binding Items, Mode=TwoWay}" SelectedItemChanged="treeViewItem_SelectedItemChanged">
+                  ItemsSource="{Binding Items, Mode=TwoWay}" SelectedItemChanged="TreeViewItem_SelectedItemChanged">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type vm:DirectoryItemViewModel}" ItemsSource="{Binding Children, Mode=TwoWay}">
                     <StackPanel Orientation="Horizontal">

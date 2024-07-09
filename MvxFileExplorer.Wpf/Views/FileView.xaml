@@ -27,6 +27,13 @@
             <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" Margin="15 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Content="&lt;" Command="{Binding MoveBackCommand}" Style="{StaticResource TransparentButtonBorderBlue}"></Button>
+            <Button Content="&gt;" Command="{Binding MoveForwardCommand}" Style="{StaticResource TransparentButtonBorderBlue}"></Button>
+            
+            <TextBlock Text="{Binding SelectedItem.Path, Mode=OneWay}" Width="Auto"></TextBlock>
+        </StackPanel>
+
         <ListView x:Name="ListViewItems" ItemsSource="{Binding SelectedItem.Children, Mode=TwoWay}" Grid.Row="2" Grid.Column="3" SelectedValue="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:DirectoryItemViewModel}">

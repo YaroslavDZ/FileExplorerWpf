@@ -28,10 +28,5 @@ namespace MvxFileExplorer.Wpf.Views
             InitializeComponent();
             DataContext = new DirectoryViewModel(new Core.Models.DirectoryItemModel());
         }
-
-        private void ListViewItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            (DataContext as DirectoryViewModel).SelectedItem = (e.NewValue as DirectoryItemModel);
-        }
     }
 }
