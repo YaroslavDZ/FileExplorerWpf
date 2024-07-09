@@ -1,0 +1,1 @@
+# MvxFileExplorer.Core
