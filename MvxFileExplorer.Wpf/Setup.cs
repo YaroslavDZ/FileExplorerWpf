@@ -7,11 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using MvvmCross.IoC;
+using MvxFileExplorer.Core.Interfaces;
+using MvvmCross;
 
 namespace MvxFileExplorer.Wpf
 {
     public class Setup : MvxWpfSetup<Core.App>
     {
-
+        protected override void InitializeFirstChance()
+        {
+            base.InitializeFirstChance();
+        }
     }
 }

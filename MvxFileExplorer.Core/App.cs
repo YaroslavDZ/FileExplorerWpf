@@ -1,4 +1,6 @@
-﻿using MvvmCross.ViewModels;
+﻿using MvvmCross;
+using MvvmCross.ViewModels;
+using MvxFileExplorer.Core.Interfaces;
 using MvxFileExplorer.Core.ViewModels;
 using System;
 using System.Collections.Generic;

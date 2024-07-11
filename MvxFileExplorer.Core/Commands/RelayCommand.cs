@@ -26,7 +26,7 @@ namespace MvxFileExplorer.Core.Commands
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public bool CanExecute(object parameter) => _canExecute == null || _canExecute.Invoke(parameter);
+        public bool CanExecute(object parameter) => true;
 
         public void Execute(object? parameter)
         {

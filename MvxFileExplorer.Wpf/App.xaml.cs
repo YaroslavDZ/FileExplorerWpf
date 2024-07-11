@@ -1,6 +1,8 @@
-﻿using MvvmCross.Core;
+﻿using MvvmCross;
+using MvvmCross.Core;
 using MvvmCross.Platforms.Wpf.Core;
 using MvvmCross.Platforms.Wpf.Views;
+using MvxFileExplorer.Core.Interfaces;
 
 namespace MvxFileExplorer.Wpf
 {

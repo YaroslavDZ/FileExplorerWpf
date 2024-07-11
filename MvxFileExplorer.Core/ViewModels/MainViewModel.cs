@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using MvxFileExplorer.Core.Commands;
+using MvxFileExplorer.Core.Interfaces;
 using MvxFileExplorer.Core.Models;
 using MvxFileExplorer.Core.Services;
 using System;
@@ -72,7 +73,7 @@ namespace MvxFileExplorer.Core.ViewModels
         public MvxCommand ForwardCommand { get; }
         public MvxCommand UpCommand { get; }
 
-        public MainViewModel(/*DirectoryService directoryService*/)
+        public MainViewModel()
         {
             //_directoryService = directoryService;
             Directories = new MvxObservableCollection<DirectoryViewModel>();
@@ -82,6 +83,8 @@ namespace MvxFileExplorer.Core.ViewModels
             FileViewModel = new FileViewModel(DirectoryViewModel);
 
             navigationHistory = new ObservableCollection<string>();
+
+
 
         }
 
