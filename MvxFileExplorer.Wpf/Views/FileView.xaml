@@ -29,9 +29,9 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" Margin="15 0 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Content="&lt;" Command="{Binding MoveBackCommand}" CommandParameter="{Binding }"></Button>
+            <Button Content="&lt;" Command="{Binding MoveBackCommand}" CommandParameter="{Binding }" Style="{StaticResource TransparentButtonBorderBlue}"></Button>
             <!--Style="{StaticResource TransparentButtonBorderBlue}-->
-            <Button Content="&gt;" Command="{Binding MoveForwardCommand}" CommandParameter="{Binding }"></Button>
+            <Button Content="&gt;" Command="{Binding MoveForwardCommand}" CommandParameter="{Binding }" Style="{StaticResource TransparentButtonBorderBlue}"></Button>
 
             <TextBlock Text="{Binding Path, Mode=OneWay}" Width="Auto"></TextBlock>
         </StackPanel>

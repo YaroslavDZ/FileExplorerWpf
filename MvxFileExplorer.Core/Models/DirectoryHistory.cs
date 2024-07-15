@@ -54,6 +54,9 @@ namespace MvxFileExplorer.Core.Models
 
         public void MoveForward()
         {
+            var next = CurrentItem.NextNode;
+            CurrentItem = next;
+
             RaiseHistoryChanged();
         }
 
