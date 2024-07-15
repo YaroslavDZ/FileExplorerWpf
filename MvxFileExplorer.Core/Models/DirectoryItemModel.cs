@@ -44,7 +44,6 @@ namespace MvxFileExplorer.Core.Models
         public DirectoryItemModel SelectedItem { get; set; }
 
         public MvxObservableCollection<DirectoryItemModel>? Children { get; set; } = new MvxObservableCollection<DirectoryItemModel>();
-
     }
 
     public enum ItemType

@@ -9,13 +9,13 @@ using System.Windows.Input;
 
 namespace MvxFileExplorer.Core.Commands
 {
-    public class SelectItemCommand : ICommand
+    public class OpenCommand : ICommand
     {
         public DirectoryViewModel DirectoryViewModel { get; set; }
 
         public event EventHandler? CanExecuteChanged;
 
-        public SelectItemCommand(DirectoryViewModel directoryViewModel)
+        public OpenCommand(DirectoryViewModel directoryViewModel)
         {
             DirectoryViewModel = directoryViewModel;
         }
@@ -27,7 +27,7 @@ namespace MvxFileExplorer.Core.Commands
 
         public void Execute(object? parameter)
         {
-            DirectoryViewModel.OpenItem();
+            DirectoryViewModel.OpenItem(parameter);
         }
     }
 }

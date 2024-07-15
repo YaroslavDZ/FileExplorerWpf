@@ -27,6 +27,11 @@ namespace MvxFileExplorer.Core.ViewModels
             get => _directoryModel.Name;
             set
             {
+                /*if (_directoryModel.Name is null)
+                {
+                    _directoryModel.Name = ROOTPATH;
+                    RaisePropertyChanged(() => Name);
+                }*/
                 if (_directoryModel.Name != value)
                 {
                     _directoryModel.Name = value;
@@ -40,11 +45,11 @@ namespace MvxFileExplorer.Core.ViewModels
             get => _directoryModel.Path;
             set
             {
-                if (_directoryModel.Path is null)
+                /*if (_directoryModel.Path is null)
                 {
                     _directoryModel.Path = ROOTPATH;
                     RaisePropertyChanged(() => Path);
-                }
+                }*/
                 if (_directoryModel.Path != value)
                 {
                     _directoryModel.Path = value;
@@ -74,7 +79,7 @@ namespace MvxFileExplorer.Core.ViewModels
                 if (_directoryModel.SelectedItem != value)
                 {
                     _directoryModel.SelectedItem = value;
-                    _directoryHistory.Add(_directoryModel.SelectedItem.Path, _directoryModel.SelectedItem.Name);
+                    _directoryHistory.Add(Path, Name);
                     RaisePropertyChanged(() => SelectedItem);
 
                 }
@@ -83,7 +88,9 @@ namespace MvxFileExplorer.Core.ViewModels
 
         public MvxObservableCollection<DirectoryItemModel> Items { get; set; } = new MvxObservableCollection<DirectoryItemModel>();
 
-        public ICommand SelectItemCommand { get; }
+        public MvxObservableCollection<DirectoryItemModel> FileViewItems { get; set; } = new MvxObservableCollection<DirectoryItemModel>();
+
+        public OpenCommand OpenCommand { get; }
 
         public RelayCommand MoveBackCommand { get; }
 
@@ -92,9 +99,9 @@ namespace MvxFileExplorer.Core.ViewModels
         public DirectoryViewModel(DirectoryItemModel directory)
         {
             _directoryModel = directory;
-            _directoryHistory = new DirectoryHistory(ROOTPATH, ROOTPATH);
-  
-            SelectItemCommand = new SelectItemCommand(this);
+            _directoryHistory = new DirectoryHistory("C:\\", "C:\\");
+
+            OpenCommand = new OpenCommand(this);
 
             MoveBackCommand = new RelayCommand(OnMoveBack, OnCanMoveBack);
             MoveForwardCommand = new RelayCommand(OnMoveForward, OnCanMoveForward);
@@ -103,7 +110,7 @@ namespace MvxFileExplorer.Core.ViewModels
 
 
 
-            LoadItems(ROOTPATH);
+            LoadDrivesToCollection(Items);
         }
 
         private void History_HistoryChanged(object sender, EventArgs e)
@@ -119,7 +126,12 @@ namespace MvxFileExplorer.Core.ViewModels
 
             var current = _directoryHistory.CurrentItem;
 
-            SelectedItem = Items.First(item => item.Path == current.Path && item.Name == current.Name);
+            Path = current.Path;
+            Name = current.Name;
+
+            var directoryItemModel = Items.First(item => item.Path == current.Path || item.Name == current.Name);
+
+            OpenItem(directoryItemModel);
         }
 
         public bool OnCanMoveBack(object obj) => _directoryHistory.CanMoveBack;
@@ -130,14 +142,54 @@ namespace MvxFileExplorer.Core.ViewModels
 
             var current = _directoryHistory.CurrentItem;
 
-            SelectedItem = Items.First(item => item.Path == current.Path && item.Name == current.Name);
+            Path = current.Path;
+            Name = current.Name;
+
+            var directoryItemModel = Items.First(item => item.Path == current.Path || item.Name == current.Name);
+
+            OpenItem(directoryItemModel);
+
+            //SelectedItem = Items.First(item => item.Path == current.Path && item.Name == current.Name);
         }
 
         public bool OnCanMoveForward(object obj) => _directoryHistory.CanMoveForward;
 
-        public void OpenItem()
+        public void OpenItem(object parameter)
         {
-            LoadItems(SelectedItem.Path);
+            if (parameter is DirectoryItemModel item)
+            {
+                Path = item.Path;
+                FileViewItems.Clear();
+
+                var directoryInfo = new DirectoryInfo(Path);
+
+                try
+                {
+                    foreach (var dir in directoryInfo.GetDirectories())
+                    {
+                        var dirItem = new DirectoryItemModel { Name = dir.Name, Path = dir.FullName, ItemType = GetItemType(dir.FullName), CreationDate = dir.CreationTime };
+                        FileViewItems.Add(dirItem);
+                    }
+
+                    foreach (var file in directoryInfo.GetFiles())
+                    {
+                        var dirItem = new DirectoryItemModel { Name = file.Name, Path = file.FullName, ItemType = GetItemType(file.FullName), CreationDate = file.CreationTime };
+                        FileViewItems.Add(dirItem);
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        public void LoadDrivesToCollection(MvxObservableCollection<DirectoryItemModel> items)
+        {
+            foreach (var logicalDrive in Directory.GetLogicalDrives())
+            {
+                items.Add(new DirectoryItemModel() { Path = logicalDrive, Name = logicalDrive, ItemType = GetItemType(logicalDrive) });
+            }
         }
 
         public void LoadItems(string rootPath)

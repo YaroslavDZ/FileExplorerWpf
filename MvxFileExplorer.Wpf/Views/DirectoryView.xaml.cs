@@ -29,51 +29,18 @@ namespace MvxFileExplorer.Wpf.Views
         {
             InitializeComponent();
             DataContext = new DirectoryViewModel(new Core.Models.DirectoryItemModel());
+            this.Loaded += DirectoryView_Loaded;
         }
 
-        private void TreeViewItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void DirectoryView_Loaded(object sender, RoutedEventArgs e)
         {
-            var viewModel = DataContext as DirectoryViewModel;
-            if (viewModel != null)
+            // Change the binding mode to OneWayToSource
+            var binding = new Binding("Items")
             {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    viewModel.SelectedItem = e.NewValue as DirectoryItemModel;
-                });
-            }
+                Source = this.DataContext,
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(ListViewItem, ListView.ItemsSourceProperty, binding);
         }
-
-        //private void LoadFileSystem(string path, ItemCollection items)
-        //{
-        //    DirectoryInfo directoryInfo = new DirectoryInfo(path);
-
-        //    try
-        //    {
-        //        foreach (var directory in directoryInfo.GetDirectories())
-        //        {
-        //            TreeViewItem directoryItem = new TreeViewItem
-        //            {
-        //                Header = directory.Name,
-        //                Tag = directory.FullName,
-        //            };
-        //            items.Add(directoryItem);
-        //            LoadFileSystem(directory.FullName, directoryItem.Items);
-        //        }
-
-        //        foreach (var file in directoryInfo.GetFiles())
-        //        {
-        //            TreeViewItem fileItem = new TreeViewItem
-        //            {
-        //                Header = file.Name,
-        //                Tag = file.FullName
-        //            };
-        //            items.Add(fileItem);
-        //        }
-        //    }
-        //    catch (UnauthorizedAccessException e)
-        //    {
-
-        //    }
-        //}
     }
 }
