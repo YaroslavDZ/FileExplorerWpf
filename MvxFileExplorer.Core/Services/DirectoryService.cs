@@ -18,7 +18,7 @@ namespace MvxFileExplorer.Core.Services
             foreach (var drive in drives)
             {
                 var directoryInfo = new DirectoryInfo(drive);
-                directories.Add(new DirectoryItemModel
+                directories.Add(new DirectoryItemModel(directoryInfo.FullName, directoryInfo.Name)
                 {
                     Name = directoryInfo.Name,
                     Path = directoryInfo.FullName,
@@ -35,11 +35,7 @@ namespace MvxFileExplorer.Core.Services
 
             foreach (var directory in directoryInfo.GetDirectories())
             {
-                directories.Add(new DirectoryItemModel
-                {
-                    Name = directory.Name,
-                    Path = directory.FullName,
-                });
+                directories.Add(new DirectoryItemModel(directory.FullName, directory.Name));
             }
 
             return directories;
@@ -52,11 +48,7 @@ namespace MvxFileExplorer.Core.Services
 
             foreach (var file in directoryInfo.GetFiles())
             {
-                files.Add(new DirectoryItemModel
-                {
-                    Name = file.Name,
-                    Path = file.FullName,
-                });
+                files.Add(new DirectoryItemModel(file.FullName, file.Name));
             }
 
             return files;

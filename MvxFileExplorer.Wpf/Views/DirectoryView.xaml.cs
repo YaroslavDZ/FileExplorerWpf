@@ -28,7 +28,7 @@ namespace MvxFileExplorer.Wpf.Views
         public DirectoryView()
         {
             InitializeComponent();
-            DataContext = new DirectoryViewModel(new Core.Models.DirectoryItemModel());
+            DataContext = new DirectoryViewModel(new Core.Models.DirectoryItemModel("C:\\", "C:\\"));
             this.Loaded += DirectoryView_Loaded;
         }
 

@@ -21,6 +21,10 @@ namespace MvxFileExplorer.Core.Models
 
         public ItemType ItemType { get; set; }
 
+        public DirectoryItemModel PreviousNode { get; set; }
+
+        public DirectoryItemModel NextNode { get; set; }
+
         public string ImagePath {
             get
             {
@@ -44,6 +48,12 @@ namespace MvxFileExplorer.Core.Models
         public DirectoryItemModel SelectedItem { get; set; }
 
         public MvxObservableCollection<DirectoryItemModel>? Children { get; set; } = new MvxObservableCollection<DirectoryItemModel>();
+
+        public DirectoryItemModel(string path, string name)
+        {
+            Path = path;
+            Name = name;
+        }
     }
 
     public enum ItemType

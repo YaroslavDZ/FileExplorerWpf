@@ -10,9 +10,9 @@ namespace MvxFileExplorer.Core.Models
 {
     public class DirectoryHistory : IDirectoryHistory
     {
-        private DirectoryHistoryNode _head;
+        private DirectoryItemModel _head;
 
-        public DirectoryHistoryNode CurrentItem { get; private set; }
+        public DirectoryItemModel CurrentItem { get; private set; }
 
         public bool CanMoveBack => CurrentItem.PreviousNode != null;
 
@@ -22,11 +22,11 @@ namespace MvxFileExplorer.Core.Models
 
         public DirectoryHistory(string filePath, string name)
         {
-            _head = new DirectoryHistoryNode(filePath, name);
+            _head = new DirectoryItemModel(filePath, name);
             CurrentItem = _head;
         }
 
-        public IEnumerator<DirectoryHistoryNode> GetEnumerator()
+        public IEnumerator<DirectoryItemModel> GetEnumerator()
         {
             yield return CurrentItem;
         }
@@ -43,7 +43,7 @@ namespace MvxFileExplorer.Core.Models
 
         public void Add(string filePath, string name)
         {
-            var node = new DirectoryHistoryNode(filePath, name);
+            var node = new DirectoryItemModel(filePath, name);
 
             CurrentItem.NextNode = node;
             node.PreviousNode = CurrentItem;

@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MvxFileExplorer.Core.Interfaces
 {
-    public interface IDirectoryHistory : IEnumerable<DirectoryHistoryNode>
+    public interface IDirectoryHistory : IEnumerable<DirectoryItemModel>
     {
         public bool CanMoveBack { get; }
 
         public bool CanMoveForward { get; }
 
-        public DirectoryHistoryNode CurrentItem { get; }
+        public DirectoryItemModel CurrentItem { get; }
 
         public void Add(string filePath, string name);
 

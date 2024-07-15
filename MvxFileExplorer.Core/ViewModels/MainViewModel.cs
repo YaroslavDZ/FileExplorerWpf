@@ -78,7 +78,7 @@ namespace MvxFileExplorer.Core.ViewModels
             //_directoryService = directoryService;
             Directories = new MvxObservableCollection<DirectoryViewModel>();
 
-            DirectoryViewModel = new DirectoryViewModel(new DirectoryItemModel());
+            DirectoryViewModel = new DirectoryViewModel(new DirectoryItemModel("C:\\", "C:\\"));
 
             FileViewModel = new FileViewModel(DirectoryViewModel);
 
