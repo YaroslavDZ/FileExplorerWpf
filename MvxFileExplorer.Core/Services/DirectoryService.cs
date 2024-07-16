@@ -1,4 +1,5 @@
-﻿using MvxFileExplorer.Core.Models;
+﻿using MvvmCross.ViewModels;
+using MvxFileExplorer.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,82 +11,69 @@ namespace MvxFileExplorer.Core.Services
 {
     public class DirectoryService
     {
-        public ObservableCollection<DirectoryItemModel> GetRootDirectories()
+        private void OpenDirectory(MvxObservableCollection<DirectoryItemModel> items, string path)
         {
-            var drives = Directory.GetLogicalDrives();
-            var directories = new ObservableCollection<DirectoryItemModel>();
+            items.Clear();
 
-            foreach (var drive in drives)
+
+            var directoryInfo = new DirectoryInfo(path);
+
+            try
             {
-                var directoryInfo = new DirectoryInfo(drive);
-                directories.Add(new DirectoryItemModel(directoryInfo.FullName, directoryInfo.Name)
+                foreach (var dir in directoryInfo.GetDirectories())
                 {
-                    Name = directoryInfo.Name,
-                    Path = directoryInfo.FullName,
-                });
+                    var dirItem = new DirectoryItemModel(dir.FullName, dir.Name) { Name = dir.Name, Path = dir.FullName, ItemType = GetItemType(dir.FullName), CreationDate = dir.CreationTime };
+                    items.Add(dirItem);
+                }
+
+                foreach (var file in directoryInfo.GetFiles())
+                {
+                    var dirItem = new DirectoryItemModel(file.FullName, file.Name) { Name = file.Name, Path = file.FullName, ItemType = GetItemType(file.FullName), CreationDate = file.CreationTime };
+                    items.Add(dirItem);
+                }
             }
-
-            return directories;
-        }
-
-        private ObservableCollection<DirectoryItemModel> GetDirectories(string path)
-        {
-            var directories = new ObservableCollection<DirectoryItemModel>();
-            var directoryInfo = new DirectoryInfo(path);
-
-            foreach (var directory in directoryInfo.GetDirectories())
+            catch
             {
-                directories.Add(new DirectoryItemModel(directory.FullName, directory.Name));
-            }
 
-            return directories;
+            }
         }
 
-        private ObservableCollection<DirectoryItemModel> GetFiles(string path)
+        public ItemType GetItemType(string path)
         {
-            var files = new ObservableCollection<DirectoryItemModel>();
-            var directoryInfo = new DirectoryInfo(path);
-
-            foreach (var file in directoryInfo.GetFiles())
+            if (string.IsNullOrEmpty(path))
             {
-                files.Add(new DirectoryItemModel(file.FullName, file.Name));
+                return ItemType.Unknown;
             }
 
-            return files;
+            if (File.Exists(path))
+            {
+                return ItemType.File;
+            }
+
+            if (Directory.Exists(path))
+            {
+                if (IsDrive(path))
+                {
+                    return ItemType.Drive;
+                }
+
+                return ItemType.Directory;
+            }
+
+            return ItemType.Unknown;
         }
 
-
-
-        //public static IList<FileInfo> GetChildFiles(string directory)
-        //{
-        //    try
-        //    {
-        //        return Directory.GetFiles(directory).Select(x => new FileInfo(x)).ToList();
-        //    }
-        //    catch (Exception e){
-        //        Console.WriteLine(e.Message);
-        //    }
-
-        //    return new List<FileInfo>();
-        //}
-
-        //public static IList<DirectoryInfo> GetChildDirectories(string directory)
-        //{
-        //     try
-        //     {
-        //        return Directory.GetDirectories(directory).Select(x => new DirectoryInfo(x)).ToList();
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         Console.WriteLine(e.Message);
-        //     }
-
-        //     return new List<DirectoryInfo>();
-        //}
-
-        //public static IList<DriveInfo> GetRootDirectories()
-        //{
-        //    return DriveInfo.GetDrives().ToList();
-        //}
+        private bool IsDrive(string path)
+        {
+            try
+            {
+                DriveInfo driveInfo = new DriveInfo(path);
+                return driveInfo.IsReady && driveInfo.Name.Equals(path, StringComparison.OrdinalIgnoreCase);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

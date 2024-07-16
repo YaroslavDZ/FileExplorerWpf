@@ -27,11 +27,6 @@ namespace MvxFileExplorer.Core.ViewModels
             get => _directoryModel.Name;
             set
             {
-                /*if (_directoryModel.Name is null)
-                {
-                    _directoryModel.Name = ROOTPATH;
-                    RaisePropertyChanged(() => Name);
-                }*/
                 if (_directoryModel.Name != value)
                 {
                     _directoryModel.Name = value;
@@ -45,11 +40,6 @@ namespace MvxFileExplorer.Core.ViewModels
             get => _directoryModel.Path;
             set
             {
-                /*if (_directoryModel.Path is null)
-                {
-                    _directoryModel.Path = ROOTPATH;
-                    RaisePropertyChanged(() => Path);
-                }*/
                 if (_directoryModel.Path != value)
                 {
                     _directoryModel.Path = value;
@@ -129,8 +119,6 @@ namespace MvxFileExplorer.Core.ViewModels
             Path = current.Path;
             Name = current.Name;
 
-            //var directoryItemModel = Items.First(item => item.Path == current.Path /*|| item.Name == current.Name*/);
-
             OpenDirectory();
         }
 
@@ -145,11 +133,7 @@ namespace MvxFileExplorer.Core.ViewModels
             Path = current.Path;
             Name = current.Name;
 
-            //var directoryItemModel = Items.First(item => item.Path == current.Path /*|| item.Name == current.Name*/);
-
             OpenDirectory();
-
-            //SelectedItem = Items.First(item => item.Path == current.Path && item.Name == current.Name);
         }
 
         public bool OnCanMoveForward(object obj) => _directoryHistory.CanMoveForward;
@@ -200,45 +184,6 @@ namespace MvxFileExplorer.Core.ViewModels
             {
                 items.Add(new DirectoryItemModel(logicalDrive, logicalDrive) { Path = logicalDrive, Name = logicalDrive, ItemType = GetItemType(logicalDrive) });
             }
-        }
-
-        public void LoadItems(string rootPath)
-        {
-            Items.Clear();
-
-            if (Directory.Exists(rootPath))
-            {
-                foreach (var dir in Directory.GetDirectories(rootPath))
-                {
-                    var item = new DirectoryItemModel(dir, System.IO.Path.GetFileName(dir)) { Name = System.IO.Path.GetFileName(dir), Path = dir, ItemType = GetItemType(dir) };
-                    Items.Add(item);
-                    LoadChildren(item);
-                }
-
-                foreach (var file in Directory.GetFiles(rootPath))
-                {
-                    Items.Add(new DirectoryItemModel(file, System.IO.Path.GetFileName(file)) { Name = System.IO.Path.GetFileName(file), Path = file, ItemType = GetItemType(file) });
-                }
-            }
-        }
-
-        private void LoadChildren(DirectoryItemModel item)
-        {
-            try
-            {
-                foreach (var dir in Directory.GetDirectories(item.Path))
-                {
-                    var childItem = new DirectoryItemModel(dir, System.IO.Path.GetFileName(dir)) { Name = System.IO.Path.GetFileName(dir), Path = dir, ItemType = GetItemType(dir) };
-                    item.Children.Add(childItem);
-                    LoadChildren(childItem);
-                }
-
-                foreach (var file in Directory.GetFiles(item.Path))
-                {
-                    item.Children.Add(new DirectoryItemModel(file, System.IO.Path.GetFileName(file)) { Name = System.IO.Path.GetFileName(file), Path = file, ItemType = GetItemType(file) });
-                }
-            }
-            catch { }
         }
 
         private bool IsDrive(string path)

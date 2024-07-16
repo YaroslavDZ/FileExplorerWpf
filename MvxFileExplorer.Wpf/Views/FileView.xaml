@@ -33,18 +33,19 @@
             <!--Style="{StaticResource TransparentButtonBorderBlue}-->
             <Button Content="&gt;" Command="{Binding MoveForwardCommand}" CommandParameter="{Binding }" Style="{StaticResource TransparentButtonBorderBlue}"></Button>
 
-            <TextBlock Text="{Binding Path, Mode=OneWay}" Width="Auto"></TextBlock>
+            <TextBlock Text="{Binding Path, Mode=OneWay}" Style="{StaticResource TextBlockStyle}">
+            </TextBlock>
         </StackPanel>
 
         <ListView x:Name="ListViewItem" Grid.Row="2" Grid.Column="3"
-          ItemsSource="{Binding FileViewItems, Mode=TwoWay}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectedValue="{Binding SelectedItem}">
+          ItemsSource="{Binding FileViewItems, Mode=TwoWay}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectedValue="{Binding SelectedItem}" MaxHeight="540">
             <!--SelectedValue="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="MouseDoubleClick">
                     <b:InvokeCommandAction Command="{Binding OpenCommand}" CommandParameter="{Binding ElementName=ListViewItem, Path=SelectedItem}"/>
                 </b:EventTrigger>
             </b:Interaction.Triggers>
-            
+
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:DirectoryItemViewModel}">
                     <StackPanel Orientation="Horizontal">

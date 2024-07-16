@@ -20,14 +20,17 @@
         <DataTemplate x:Key="FileViewTemplate" DataType="{x:Type vm:FileViewModel}">
         </DataTemplate>
 
+        <DataTemplate x:Key="ChartViewTemplate" DataType="{x:Type vm:ChartViewModel}">
+        </DataTemplate>
+
         <Style x:Name="TransparentButtonBorderBlue" x:Key="TransparentButtonBorderBlue" TargetType="Button">
             <Setter Property="Padding" Value="10 5 10 5"></Setter>
             <Setter Property="BorderBrush" Value="CornflowerBlue"></Setter>
             <Setter Property="BorderThickness" Value="2"></Setter>
             <Setter Property="Foreground" Value="CornflowerBlue"></Setter>
-            <Setter Property="Margin" Value="0 0 3 0"></Setter>
+            <Setter Property="Margin" Value="0 0 3 10"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
-                <Setter Property="Template">
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="ButtonBorder" CornerRadius="6"
@@ -46,6 +49,49 @@
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="BorderBrush" Value="Gray"/>
                     <Setter Property="Foreground" Value="Gray"/>
+                </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="Cursor" Value="Hand"></Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="ButtonBorder" CornerRadius="6"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="CornflowerBlue"
+                                        Background="CornflowerBlue"
+                                        Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+
+
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Name="TextBlockStyle" x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="CornflowerBlue"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0 0 3 10"/>
+            <Setter Property="Padding" Value="10 5 10 5"/>
+
+            <Setter Property="ContextMenu">
+                <Setter.Value>
+                    <ContextMenu>
+                        <MenuItem Header="Copy"/>
+                    </ContextMenu>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="CornflowerBlue"/>
+                    <Setter Property="Width" Value="Auto"></Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>

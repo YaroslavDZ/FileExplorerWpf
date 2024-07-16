@@ -24,6 +24,7 @@ namespace MvxFileExplorer.Core.ViewModels
 
         private DirectoryViewModel _directoryViewModel;
         private FileViewModel _fileViewModel;
+        private ChartViewModel _chartViewModel;
 
         private ObservableCollection<string> navigationHistory;
         private int currentIndex;
@@ -38,7 +39,6 @@ namespace MvxFileExplorer.Core.ViewModels
                 {
                     currentPath = value;
                     RaisePropertyChanged();
-                    UpdateNavigationHistory();
                 }
             }
         }
@@ -53,6 +53,12 @@ namespace MvxFileExplorer.Core.ViewModels
         {
             get => _fileViewModel;
             set => SetProperty(ref _fileViewModel, value);
+        }
+
+        public ChartViewModel ChartViewModel
+        {
+            get => _chartViewModel;
+            set => SetProperty(ref _chartViewModel, value);
         }
 
         public FileViewModel SelectedFile
@@ -80,59 +86,12 @@ namespace MvxFileExplorer.Core.ViewModels
 
             DirectoryViewModel = new DirectoryViewModel(new DirectoryItemModel("C:\\", "C:\\"));
 
-            FileViewModel = new FileViewModel(DirectoryViewModel);
+            FileViewModel = new FileViewModel();
+
+            ChartViewModel = new ChartViewModel();
 
             navigationHistory = new ObservableCollection<string>();
 
-
-
         }
-
-        private void UpdateNavigationHistory()
-        {
-            if (currentIndex == navigationHistory.Count - 1)
-            {
-                navigationHistory.Add(currentPath);
-                currentIndex++;
-            }
-            else
-            {
-                navigationHistory[currentIndex] = currentPath;
-            }
-            RaisePropertyChanged(nameof(CanGoBack));
-            RaisePropertyChanged(nameof(CanGoForward));
-        }
-        private void Back(object parameter)
-        {
-            if (CanGoBack)
-            {
-                currentIndex--;
-                CurrentPath = navigationHistory[currentIndex];
-            }
-        }
-
-        public bool CanGoBack => currentIndex > 0;
-
-        private void Forward(object parameter)
-        {
-            if (CanGoForward)
-            {
-                currentIndex++;
-                CurrentPath = navigationHistory[currentIndex];
-            }
-        }
-
-        public bool CanGoForward => currentIndex < navigationHistory.Count - 1;
-
-        private void Up(object parameter)
-        {
-            if (CanGoUp)
-            {
-                CurrentPath = System.IO.Path.GetDirectoryName(CurrentPath);
-            }
-        }
-
-        public bool CanGoUp => !string.IsNullOrEmpty(CurrentPath) && System.IO.Path.GetDirectoryName(CurrentPath) != null;
-
     }
 }
