@@ -4,6 +4,7 @@ using MvxFileExplorer.Core.Commands;
 using MvxFileExplorer.Core.Interfaces;
 using MvxFileExplorer.Core.Models;
 using MvxFileExplorer.Core.Services;
+using MvxFileExplorer.Core.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -81,14 +82,13 @@ namespace MvxFileExplorer.Core.ViewModels
 
         public MainViewModel()
         {
-            //_directoryService = directoryService;
             Directories = new MvxObservableCollection<DirectoryViewModel>();
 
             DirectoryViewModel = new DirectoryViewModel(new DirectoryItemModel("C:\\", "C:\\"));
 
             FileViewModel = new FileViewModel();
 
-            ChartViewModel = new ChartViewModel();
+            ChartViewModel = new ChartViewModel(new NavigationStore());
 
             navigationHistory = new ObservableCollection<string>();
 

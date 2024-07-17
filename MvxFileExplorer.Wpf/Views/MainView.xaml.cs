@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Platforms.Wpf.Views;
+using MvxFileExplorer.Core.Stores;
 using MvxFileExplorer.Core.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,6 @@ namespace MvxFileExplorer.Wpf.Views
         public MainView()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }

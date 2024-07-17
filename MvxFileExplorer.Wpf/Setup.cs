@@ -10,6 +10,7 @@ using System.Windows.Threading;
 using MvvmCross.IoC;
 using MvxFileExplorer.Core.Interfaces;
 using MvvmCross;
+using MvxFileExplorer.Core.Stores;
 
 namespace MvxFileExplorer.Wpf
 {

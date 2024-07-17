@@ -3,6 +3,7 @@ using MvvmCross.ViewModels;
 using MvxFileExplorer.Core.Commands;
 using MvxFileExplorer.Core.Interfaces;
 using MvxFileExplorer.Core.Models;
+using MvxFileExplorer.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,7 @@ namespace MvxFileExplorer.Core.ViewModels
     {
         private DirectoryItemModel _directoryModel;
         private readonly IDirectoryHistory _directoryHistory;
+        private readonly DirectoryService _directoryService;
         public const string ROOTPATH = "C:\\Users\\ydzys";
 
         public string Name
@@ -89,6 +91,7 @@ namespace MvxFileExplorer.Core.ViewModels
         {
             _directoryModel = directory;
             _directoryHistory = new DirectoryHistory("C:\\", "C:\\");
+            _directoryService = new DirectoryService();
 
             OpenCommand = new OpenCommand(this);
 
@@ -98,7 +101,7 @@ namespace MvxFileExplorer.Core.ViewModels
             Name = _directoryHistory.CurrentItem.Name;
             Path = _directoryHistory.CurrentItem.Path;
 
-            LoadDrivesToCollection(Items);
+            _directoryService.LoadDrivesToCollection(Items);
 
             _directoryHistory.HistoryChanged += History_HistoryChanged;
         }
@@ -119,7 +122,7 @@ namespace MvxFileExplorer.Core.ViewModels
             Path = current.Path;
             Name = current.Name;
 
-            OpenDirectory();
+            _directoryService.OpenDirectory(FileViewItems, Path);
         }
 
         public bool OnCanMoveBack(object obj) => _directoryHistory.CanMoveBack;
@@ -133,7 +136,7 @@ namespace MvxFileExplorer.Core.ViewModels
             Path = current.Path;
             Name = current.Name;
 
-            OpenDirectory();
+            _directoryService.OpenDirectory(FileViewItems, Path);
         }
 
         public bool OnCanMoveForward(object obj) => _directoryHistory.CanMoveForward;
@@ -147,11 +150,11 @@ namespace MvxFileExplorer.Core.ViewModels
 
                 _directoryHistory.Add(Path, Name);
 
-                OpenDirectory();
+                _directoryService.OpenDirectory(FileViewItems, Path);
             }
         }
 
-        private void OpenDirectory()
+       /* private void OpenDirectory()
         {
             FileViewItems.Clear();
 
@@ -223,6 +226,6 @@ namespace MvxFileExplorer.Core.ViewModels
 
             return ItemType.Unknown;
         }
-
+*/
     }
 }

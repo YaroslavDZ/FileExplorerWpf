@@ -1,4 +1,5 @@
 ﻿using MvvmCross.ViewModels;
+using MvxFileExplorer.Core.Interfaces;
 using MvxFileExplorer.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MvxFileExplorer.Core.Services
 {
-    public class DirectoryService
+    public class DirectoryService : IDirectoryService
     {
-        private void OpenDirectory(MvxObservableCollection<DirectoryItemModel> items, string path)
+        public void OpenDirectory(MvxObservableCollection<DirectoryItemModel> items, string path)
         {
             items.Clear();
 
@@ -38,6 +39,27 @@ namespace MvxFileExplorer.Core.Services
             }
         }
 
+        public void LoadDrivesToCollection(MvxObservableCollection<DirectoryItemModel> items)
+        {
+            foreach (var logicalDrive in Directory.GetLogicalDrives())
+            {
+                items.Add(new DirectoryItemModel(logicalDrive, logicalDrive) { Path = logicalDrive, Name = logicalDrive, ItemType = GetItemType(logicalDrive) });
+            }
+        }
+
+        private bool IsDrive(string path)
+        {
+            try
+            {
+                DriveInfo driveInfo = new DriveInfo(path);
+                return driveInfo.IsReady && driveInfo.Name.Equals(path, StringComparison.OrdinalIgnoreCase);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public ItemType GetItemType(string path)
         {
             if (string.IsNullOrEmpty(path))
@@ -61,19 +83,6 @@ namespace MvxFileExplorer.Core.Services
             }
 
             return ItemType.Unknown;
-        }
-
-        private bool IsDrive(string path)
-        {
-            try
-            {
-                DriveInfo driveInfo = new DriveInfo(path);
-                return driveInfo.IsReady && driveInfo.Name.Equals(path, StringComparison.OrdinalIgnoreCase);
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }
