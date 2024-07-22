@@ -51,7 +51,14 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding ImagePath}" Width="30" Height="30" Grid.Row="0"></Image>
                         <TextBlock Text="{Binding Name}" Grid.Row="1"/>
+
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Analyze" />
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
                     </StackPanel>
+
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.ItemContainerStyle>
