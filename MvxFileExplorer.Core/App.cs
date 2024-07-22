@@ -14,7 +14,6 @@ namespace MvxFileExplorer.Core
     {
         public override void Initialize()
         {
-            base.Initialize();
             RegisterAppStart<MainViewModel>();
         }
     }

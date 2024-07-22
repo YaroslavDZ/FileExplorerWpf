@@ -20,14 +20,11 @@ namespace MvxFileExplorer.Core.Commands
         }
         public event EventHandler? CanExecuteChanged;
 
-        public bool CanExecute(object? parameter)
-        {
-            throw new NotImplementedException();
-        }
+        public bool CanExecute(object? parameter) => true;
 
         public void Execute(object? parameter)
         {
-            _navigationStore.CurrentViewModel = new MainViewModel();
+            _navigationStore.CurrentViewModel = new ExplorerViewModel(_navigationStore);
         }
     }
 }

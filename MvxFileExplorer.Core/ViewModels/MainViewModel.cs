@@ -23,6 +23,11 @@ namespace MvxFileExplorer.Core.ViewModels
         private DirectoryViewModel _selectedDirectory;
         private FileViewModel _selectedFile;
 
+        private readonly NavigationStore _navigationStore;
+
+        public MvxViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
+
+
         private DirectoryViewModel _directoryViewModel;
         private FileViewModel _fileViewModel;
         private ChartViewModel _chartViewModel;
@@ -82,16 +87,26 @@ namespace MvxFileExplorer.Core.ViewModels
 
         public MainViewModel()
         {
+            _navigationStore = new NavigationStore();
+
             Directories = new MvxObservableCollection<DirectoryViewModel>();
 
             DirectoryViewModel = new DirectoryViewModel(new DirectoryItemModel("C:\\", "C:\\"));
 
             FileViewModel = new FileViewModel();
 
-            ChartViewModel = new ChartViewModel(new NavigationStore());
+            ChartViewModel = new ChartViewModel(_navigationStore);
+
+            _navigationStore.CurrentViewModel = new ExplorerViewModel(_navigationStore);
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
             navigationHistory = new ObservableCollection<string>();
 
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            RaisePropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

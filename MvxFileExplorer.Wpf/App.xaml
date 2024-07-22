@@ -20,6 +20,9 @@
         <DataTemplate x:Key="FileViewTemplate" DataType="{x:Type vm:FileViewModel}">
         </DataTemplate>
 
+        <DataTemplate x:Key="ExplorerViewTemplate" DataType="{x:Type vm:ExplorerViewModel}">
+        </DataTemplate>
+
         <DataTemplate x:Key="ChartViewTemplate" DataType="{x:Type vm:ChartViewModel}">
         </DataTemplate>
 

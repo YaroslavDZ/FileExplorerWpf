@@ -9,7 +9,28 @@ namespace MvxFileExplorer.Core.Stores
 {
     public class NavigationStore
     {
-        public MvxViewModel CurrentViewModel { get; set; }
+        private MvxViewModel _currentViewModel;
+
+        public MvxViewModel CurrentViewModel
+        {
+            get => _currentViewModel;
+            set
+            {
+                if (_currentViewModel != value)
+                {
+                    _currentViewModel = value;
+                    OnCurrentlyViewModelChanged();
+                }
+            }
+        }
+
+        public event Action CurrentViewModelChanged;
+
+        private void OnCurrentlyViewModelChanged()
+        {
+            CurrentViewModelChanged?.Invoke();
+        }
+
     }
 }
  

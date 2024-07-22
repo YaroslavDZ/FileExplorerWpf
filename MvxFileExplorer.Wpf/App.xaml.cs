@@ -3,6 +3,9 @@ using MvvmCross.Core;
 using MvvmCross.Platforms.Wpf.Core;
 using MvvmCross.Platforms.Wpf.Views;
 using MvxFileExplorer.Core.Interfaces;
+using MvxFileExplorer.Core.Stores;
+using MvxFileExplorer.Core.ViewModels;
+using System.Windows;
 
 namespace MvxFileExplorer.Wpf
 {
@@ -13,7 +16,7 @@ namespace MvxFileExplorer.Wpf
     {
         protected override void RegisterSetup()
         {
-            this.RegisterSetupType<Setup>();
+            this.RegisterSetupType<MvxWpfSetup<MvxFileExplorer.Core.App>>();
         }
     }
 
