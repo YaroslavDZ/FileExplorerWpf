@@ -38,8 +38,10 @@
         </StackPanel>
 
         <ListView x:Name="ListViewItem" Grid.Row="2" Grid.Column="3"
-          ItemsSource="{Binding FileViewItems, Mode=TwoWay}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectedValue="{Binding SelectedItem}" MaxHeight="540">
-            <!--SelectedValue="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+          ItemsSource="{Binding FileViewItems, Mode=TwoWay}" 
+          SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
+          SelectedValue="{Binding SelectedItem}" MaxHeight="540">
+
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="MouseDoubleClick">
                     <b:InvokeCommandAction Command="{Binding OpenCommand}" CommandParameter="{Binding ElementName=ListViewItem, Path=SelectedItem}"/>
@@ -48,24 +50,33 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type vm:DirectoryViewModel}">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Image Source="{Binding ImagePath}" Width="30" Height="30"></Image>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding CreationDate}"/>
+                    <Grid VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                        <StackPanel.ContextMenu>
+                        <Image Source="{Binding ImagePath}" Width="30" Height="30" Margin="0,0,5,0" Grid.Column="0"/>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Grid.Column="1" />
+                        <TextBlock Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <Run Text="Created: " />
+                            <Run Text="{Binding CreationDate}" />
+                        </TextBlock>
+
+                        <Grid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Analyze" />
                             </ContextMenu>
-                        </StackPanel.ContextMenu>
-                    </StackPanel>
-
+                        </Grid.ContextMenu>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" >
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Setter Property="VerticalContentAlignment" Value="Center" />
                 </Style>
             </ListView.ItemContainerStyle>
