@@ -40,7 +40,7 @@
             </b:Interaction.Triggers>
 
             <ListView.ItemTemplate>
-                <DataTemplate DataType="{x:Type vm:DirectoryItemViewModel}">
+                <DataTemplate DataType="{x:Type vm:DirectoryViewModel}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding ImagePath}" Width="25" Height="25"></Image>
                         <TextBlock Text="{Binding Name}" />

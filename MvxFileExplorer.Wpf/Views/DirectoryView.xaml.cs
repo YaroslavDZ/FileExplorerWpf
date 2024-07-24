@@ -28,19 +28,6 @@ namespace MvxFileExplorer.Wpf.Views
         public DirectoryView()
         {
             InitializeComponent();
-            DataContext = new DirectoryViewModel(new Core.Models.DirectoryItemModel("C:\\", "C:\\"));
-            this.Loaded += DirectoryView_Loaded;
-        }
-
-        private void DirectoryView_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Change the binding mode to OneWayToSource
-            var binding = new Binding("Items")
-            {
-                Source = this.DataContext,
-                Mode = BindingMode.OneWay
-            };
-            BindingOperations.SetBinding(ListViewItem, ListView.ItemsSourceProperty, binding);
         }
     }
 }

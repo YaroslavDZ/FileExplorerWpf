@@ -14,14 +14,11 @@ namespace MvxFileExplorer.Core.ViewModels
     {
         public DirectoryViewModel DirectoryViewModel { get; set; }
 
-        public FileViewModel FileViewModel { get; set; }
-
         public ICommand NavigateChartCommand { get; private set; }
 
         public ExplorerViewModel(NavigationStore navigationStore)
         {
             DirectoryViewModel = new DirectoryViewModel(new Models.DirectoryItemModel("C\\", "C:\\"));
-            FileViewModel = new FileViewModel();
 
             NavigateChartCommand = new NavigateChartCommand(navigationStore);
         }

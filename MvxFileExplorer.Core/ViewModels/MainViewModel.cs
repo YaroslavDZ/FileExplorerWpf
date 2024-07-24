@@ -21,7 +21,6 @@ namespace MvxFileExplorer.Core.ViewModels
         private readonly DirectoryService _directoryService;
 
         private DirectoryViewModel _selectedDirectory;
-        private FileViewModel _selectedFile;
 
         private readonly NavigationStore _navigationStore;
 
@@ -29,7 +28,6 @@ namespace MvxFileExplorer.Core.ViewModels
 
 
         private DirectoryViewModel _directoryViewModel;
-        private FileViewModel _fileViewModel;
         private ChartViewModel _chartViewModel;
 
         private ObservableCollection<string> navigationHistory;
@@ -55,22 +53,10 @@ namespace MvxFileExplorer.Core.ViewModels
             set => SetProperty(ref _directoryViewModel, value);
         }
 
-        public FileViewModel FileViewModel
-        {
-            get => _fileViewModel;
-            set => SetProperty(ref _fileViewModel, value);
-        }
-
         public ChartViewModel ChartViewModel
         {
             get => _chartViewModel;
             set => SetProperty(ref _chartViewModel, value);
-        }
-
-        public FileViewModel SelectedFile
-        {
-            get => _selectedFile;
-            set => SetProperty(ref _selectedFile, value);
         }
 
         public MvxObservableCollection<DirectoryViewModel> Directories { get; set; }
@@ -92,8 +78,6 @@ namespace MvxFileExplorer.Core.ViewModels
             Directories = new MvxObservableCollection<DirectoryViewModel>();
 
             DirectoryViewModel = new DirectoryViewModel(new DirectoryItemModel("C:\\", "C:\\"));
-
-            FileViewModel = new FileViewModel();
 
             ChartViewModel = new ChartViewModel(_navigationStore);
 

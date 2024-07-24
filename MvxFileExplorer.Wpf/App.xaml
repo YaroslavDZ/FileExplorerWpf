@@ -11,21 +11,6 @@
              StartupUri="MainWindow.xaml">
 
     <Application.Resources>
-        <DataTemplate x:Key="MainViewTemplate" DataType="{x:Type vm:MainViewModel}">
-        </DataTemplate>
-        
-        <DataTemplate x:Key="DirectoryViewTemplate" DataType="{x:Type vm:DirectoryViewModel}">
-        </DataTemplate>
-        
-        <DataTemplate x:Key="FileViewTemplate" DataType="{x:Type vm:FileViewModel}">
-        </DataTemplate>
-
-        <DataTemplate x:Key="ExplorerViewTemplate" DataType="{x:Type vm:ExplorerViewModel}">
-        </DataTemplate>
-
-        <DataTemplate x:Key="ChartViewTemplate" DataType="{x:Type vm:ChartViewModel}">
-        </DataTemplate>
-
         <Style x:Name="TransparentButtonBorderBlue" x:Key="TransparentButtonBorderBlue" TargetType="Button">
             <Setter Property="Padding" Value="10 5 10 5"></Setter>
             <Setter Property="BorderBrush" Value="CornflowerBlue"></Setter>
@@ -99,7 +84,4 @@
             </Style.Triggers>
         </Style>
     </Application.Resources>
-    
-    
-
 </views:MvxApplication>

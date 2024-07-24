@@ -16,12 +16,5 @@ namespace MvxFileExplorer.Wpf
 {
     public class Setup : MvxWpfSetup<Core.App>
     {
-        public override void InitializePrimary()
-        {
-        }
-        /*protected override void InitializeFirstChance()
-        {
-            base.InitializeFirstChance();
-        }*/
     }
 }

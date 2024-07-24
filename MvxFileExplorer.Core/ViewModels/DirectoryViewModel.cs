@@ -50,6 +50,19 @@ namespace MvxFileExplorer.Core.ViewModels
             }
         }
 
+        public DateTime? CreationDate
+        {
+            get => _directoryModel.CreationDate;
+            set
+            {
+                if (_directoryModel.CreationDate != value)
+                {
+                    _directoryModel.CreationDate = value;
+                    RaisePropertyChanged(() => CreationDate);
+                }
+            }
+        }
+
         public bool IsSelected
         {
             get => _directoryModel.IsSelected;
@@ -153,79 +166,5 @@ namespace MvxFileExplorer.Core.ViewModels
                 _directoryService.OpenDirectory(FileViewItems, Path);
             }
         }
-
-       /* private void OpenDirectory()
-        {
-            FileViewItems.Clear();
-
-
-            var directoryInfo = new DirectoryInfo(Path);
-
-            try
-            {
-                foreach (var dir in directoryInfo.GetDirectories())
-                {
-                    var dirItem = new DirectoryItemModel(dir.FullName, dir.Name) { Name = dir.Name, Path = dir.FullName, ItemType = GetItemType(dir.FullName), CreationDate = dir.CreationTime };
-                    FileViewItems.Add(dirItem);
-                }
-
-                foreach (var file in directoryInfo.GetFiles())
-                {
-                    var dirItem = new DirectoryItemModel(file.FullName, file.Name) { Name = file.Name, Path = file.FullName, ItemType = GetItemType(file.FullName), CreationDate = file.CreationTime };
-                    FileViewItems.Add(dirItem);
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-        public void LoadDrivesToCollection(MvxObservableCollection<DirectoryItemModel> items)
-        {
-            foreach (var logicalDrive in Directory.GetLogicalDrives())
-            {
-                items.Add(new DirectoryItemModel(logicalDrive, logicalDrive) { Path = logicalDrive, Name = logicalDrive, ItemType = GetItemType(logicalDrive) });
-            }
-        }
-
-        private bool IsDrive(string path)
-        {
-            try
-            {
-                DriveInfo driveInfo = new DriveInfo(path);
-                return driveInfo.IsReady && driveInfo.Name.Equals(path, StringComparison.OrdinalIgnoreCase);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public ItemType GetItemType(string path)
-        {
-            if (string.IsNullOrEmpty(path))
-            {
-                return ItemType.Unknown;
-            }
-
-            if (File.Exists(path))
-            {
-                return ItemType.File;
-            }
-
-            if (Directory.Exists(path))
-            {
-                if (IsDrive(path))
-                {
-                    return ItemType.Drive;
-                }
-
-                return ItemType.Directory;
-            }
-
-            return ItemType.Unknown;
-        }
-*/
     }
 }
