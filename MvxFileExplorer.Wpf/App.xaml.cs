@@ -16,7 +16,7 @@ namespace MvxFileExplorer.Wpf
     {
         protected override void RegisterSetup()
         {
-            this.RegisterSetupType<MvxWpfSetup<MvxFileExplorer.Core.App>>();
+            this.RegisterSetupType<MvxWpfSetup<MvxFileExplorer.Core.App>>(); 
         }
     }
 

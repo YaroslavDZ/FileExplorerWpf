@@ -4,6 +4,7 @@ using MvxFileExplorer.Core.Commands;
 using MvxFileExplorer.Core.Interfaces;
 using MvxFileExplorer.Core.Models;
 using MvxFileExplorer.Core.Services;
+using MvxFileExplorer.Core.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -100,7 +101,9 @@ namespace MvxFileExplorer.Core.ViewModels
 
         public RelayCommand MoveForwardCommand { get; }
 
-        public DirectoryViewModel(DirectoryItemModel directory)
+        public ICommand NavigateChartCommand { get; private set; }
+
+        public DirectoryViewModel(DirectoryItemModel directory, NavigationStore navigationStore)
         {
             _directoryModel = directory;
             _directoryHistory = new DirectoryHistory("C:\\", "C:\\");
@@ -110,6 +113,8 @@ namespace MvxFileExplorer.Core.ViewModels
 
             MoveBackCommand = new RelayCommand(OnMoveBack, OnCanMoveBack);
             MoveForwardCommand = new RelayCommand(OnMoveForward, OnCanMoveForward);
+
+            NavigateChartCommand = new NavigateChartCommand(navigationStore);
 
             Name = _directoryHistory.CurrentItem.Name;
             Path = _directoryHistory.CurrentItem.Path;

@@ -18,7 +18,7 @@ namespace MvxFileExplorer.Core.ViewModels
 
         public ExplorerViewModel(NavigationStore navigationStore)
         {
-            DirectoryViewModel = new DirectoryViewModel(new Models.DirectoryItemModel("C\\", "C:\\"));
+            DirectoryViewModel = new DirectoryViewModel(new Models.DirectoryItemModel("C\\", "C:\\"), navigationStore);
 
             NavigateChartCommand = new NavigateChartCommand(navigationStore);
         }

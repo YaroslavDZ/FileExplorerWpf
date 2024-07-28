@@ -77,8 +77,6 @@ namespace MvxFileExplorer.Core.ViewModels
 
             Directories = new MvxObservableCollection<DirectoryViewModel>();
 
-            DirectoryViewModel = new DirectoryViewModel(new DirectoryItemModel("C:\\", "C:\\"));
-
             ChartViewModel = new ChartViewModel(_navigationStore);
 
             _navigationStore.CurrentViewModel = new ExplorerViewModel(_navigationStore);
