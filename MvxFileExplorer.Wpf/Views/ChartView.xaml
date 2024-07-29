@@ -30,14 +30,20 @@
             <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <lvc:PieChart LegendLocation="Bottom" Hoverable="False" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" Width="200" Height="200">
-            <lvc:PieChart.Series>
-                <lvc:PieSeries Title="Maria" Values="3" DataLabels="True"/>
-                <lvc:PieSeries Title="Charles" Values="4" DataLabels="True"/>
-                <lvc:PieSeries Title="Frida" Values="6" DataLabels="True"/>
-                <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True"/>
-            </lvc:PieChart.Series>
-        </lvc:PieChart>
+        <Grid>
+            <lvc:PieChart x:Name="PieChart" LegendLocation="Bottom"
+                          Hoverable="False" Grid.Row="1" Grid.RowSpan="2"
+                          Grid.Column="2" Grid.ColumnSpan="2"
+                          Width="200" Height="200">
+                <lvc:PieChart.Series>
+                    <lvc:PieSeries Title="Yes" Values="2"></lvc:PieSeries>
+                    <lvc:PieSeries Title="No" Values="2"></lvc:PieSeries>
+                </lvc:PieChart.Series>
+            </lvc:PieChart>
+        </Grid>
+
+        <!--<Button Content="Go Back" Command="{Binding NavigateHomeCommand}" CommandParameter="{Binding }" Style="{StaticResource TransparentButtonBorderBlue}" Grid.Row="3" Grid.Column="1"></Button>-->
+
 
     </Grid>
 </views:MvxWpfView>

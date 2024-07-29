@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Commands;
+using MvxFileExplorer.Core.Models;
 using MvxFileExplorer.Core.Stores;
 using MvxFileExplorer.Core.ViewModels;
 using System;
@@ -13,10 +14,12 @@ namespace MvxFileExplorer.Core.Commands
     public class NavigateChartCommand : ICommand
     {
         private readonly NavigationStore _navigationStore;
+        private readonly DirectoryItemModel _directoryItemModel;
 
-        public NavigateChartCommand(NavigationStore navigationStore)
+        public NavigateChartCommand(NavigationStore navigationStore, DirectoryItemModel directoryItemModel)
         {
             _navigationStore = navigationStore;
+            _directoryItemModel = directoryItemModel;
         }
         public event EventHandler? CanExecuteChanged;
 
@@ -24,7 +27,7 @@ namespace MvxFileExplorer.Core.Commands
 
         public void Execute(object? parameter)
         {
-            _navigationStore.CurrentViewModel = new ChartViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new ChartViewModel(_directoryItemModel, _navigationStore);
         }
     }
 }

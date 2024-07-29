@@ -114,7 +114,7 @@ namespace MvxFileExplorer.Core.ViewModels
             MoveBackCommand = new RelayCommand(OnMoveBack, OnCanMoveBack);
             MoveForwardCommand = new RelayCommand(OnMoveForward, OnCanMoveForward);
 
-            NavigateChartCommand = new NavigateChartCommand(navigationStore);
+            NavigateChartCommand = new NavigateChartCommand(navigationStore, _directoryModel);
 
             Name = _directoryHistory.CurrentItem.Name;
             Path = _directoryHistory.CurrentItem.Path;

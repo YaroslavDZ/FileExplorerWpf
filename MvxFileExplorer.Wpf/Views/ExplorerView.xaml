@@ -28,9 +28,8 @@
             <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Button Content="Chart" Command="{Binding NavigateChartCommand}" CommandParameter="{Binding }" Style="{StaticResource TransparentButtonBorderBlue}" Grid.Row="1" Grid.Column="3"></Button>
-
         <wpfViews:DirectoryView DataContext="{Binding DirectoryViewModel}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
         <wpfViews:FileView DataContext="{Binding DirectoryViewModel}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="1"/>
+        
     </Grid>
 </views:MvxWpfView>
