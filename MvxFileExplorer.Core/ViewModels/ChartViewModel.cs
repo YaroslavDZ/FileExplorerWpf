@@ -45,10 +45,6 @@ namespace MvxFileExplorer.Core.ViewModels
 
         public Dictionary<string, long> FileTypeSizes { get; set; }
 
-        public string Title { get; set; }
-
-        public int Value { get; set; }
-
         public ICommand NavigateHomeCommand { get; }
 
         public ChartViewModel(DirectoryItemModel directoryItemModel, NavigationStore navigationStore) 
