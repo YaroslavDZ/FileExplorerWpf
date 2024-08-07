@@ -13,7 +13,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using LiveCharts.Wpf;
 using LiveCharts.SeriesAlgorithms;
+using System.IO;
 
 namespace MvxFileExplorer.Core.ViewModels
 {
