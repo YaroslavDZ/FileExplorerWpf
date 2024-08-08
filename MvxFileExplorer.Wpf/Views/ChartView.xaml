@@ -9,34 +9,58 @@
     xmlns:local="clr-namespace:MvxFileExplorer.Wpf.Views"
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:helpers="clr-namespace:MvxFileExplorer.Wpf.Helpers"
-    xmlns:viewmodels="clr-namespace:MvxFileExplorer.Core.ViewModels;assembly=MvxFileExplorer.Core"
+    xmlns:viewmodels="clr-namespace:MvxFileExplorer.Core.ViewModels;assembly=MvxFileExplorer.Core" xmlns:chart="http://schemas.syncfusion.com/wpf"
     d:DataContext="{d:DesignInstance Type=viewmodels:ChartViewModel}"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="15"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
+            <!--<RowDefinition Height="15"></RowDefinition>-->
+            <!--<RowDefinition Height="auto"></RowDefinition>-->
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="15"></RowDefinition>
+            <!--<RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="15"></RowDefinition>-->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="15"></ColumnDefinition>
+            <!--<ColumnDefinition Width="15"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>-->
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="15"></ColumnDefinition>
+            <!--<ColumnDefinition Width="15"></ColumnDefinition>-->
         </Grid.ColumnDefinitions>
 
-        <lvc:PieChart x:Name="PieChart" LegendLocation="Bottom"
-                          Hoverable="False" Grid.Row="1" Grid.RowSpan="2"
-                          Grid.Column="2" Grid.ColumnSpan="2"
-                          Width="400" Height="400"
-                          Series="{Binding SeriesCollection}">
-        </lvc:PieChart>
+        <chart:SfChart Header="Chart" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3" MinWidth="500" MinHeight="500">
+
+            <!--Setting DataContext for SfChart-->
+            <chart:SfChart.DataContext>
+                <viewmodels:ChartViewModel/>
+            </chart:SfChart.DataContext>
+
+            <!--Adding Legend to the SfChart-->
+            <chart:SfChart.Legend>
+                <chart:ChartLegend/>
+            </chart:SfChart.Legend>
+
+            <!--Initializing the horizontal axis for SfChart-->
+            <chart:SfChart.PrimaryAxis>
+                <chart:CategoryAxis Header="Title" FontSize="18"/>
+            </chart:SfChart.PrimaryAxis>
+
+            <!--Initializing the vertical axis for SfChart-->
+            <chart:SfChart.SecondaryAxis>
+                <chart:NumericalAxis Header="Value" FontSize="18"/>
+            </chart:SfChart.SecondaryAxis>
+
+            <!--Initializing the series for SfChart-->
+            <chart:PieSeries  XBindingPath="Title" 
+
+                 ItemsSource="{Binding PieChartData}" 
+
+                  YBindingPath="Value"/>
+
+        </chart:SfChart>
 
     </Grid>
 </views:MvxWpfView>

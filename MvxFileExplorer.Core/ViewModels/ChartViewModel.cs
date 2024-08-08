@@ -74,6 +74,21 @@ namespace MvxFileExplorer.Core.ViewModels
             };
         }
 
+        public ChartViewModel()
+        {
+            _directoryItemModel = new DirectoryItemModel("C:\\", "C:\\");
+
+            NavigateHomeCommand = new NavigateMainCommand(new NavigationStore());
+
+            PieChartData = new ObservableCollection<PieChartData>
+            {
+                new PieChartData { Title = "Maria", Value = 3 },
+                new PieChartData { Title = "Charles", Value = 4 },
+                new PieChartData { Title = "Frida", Value = 6 },
+                new PieChartData { Title = "Frederic", Value = 2 }
+            };
+        }
+
         private Dictionary<string, long> CountFileTypes(string directoryPath)
         {
             var fileTypeCounts = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase)

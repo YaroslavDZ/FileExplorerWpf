@@ -10,6 +10,8 @@
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="Mime-Detective" Version="22.7.20" />
     <PackageReference Include="MvvmCross" Version="7.0.0" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="26.2.8" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="26.2.8" />
   </ItemGroup>
 
 </Project>

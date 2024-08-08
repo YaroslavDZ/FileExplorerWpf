@@ -1,6 +1,4 @@
-﻿using LiveCharts.Wpf;
-using LiveCharts;
-using MvvmCross.Platforms.Wpf.Views;
+﻿using MvvmCross.Platforms.Wpf.Views;
 using MvxFileExplorer.Core.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Syncfusion.UI.Xaml.Charts;
+using MvxFileExplorer.Core.Models;
+using MvxFileExplorer.Core.Stores;
 
 namespace MvxFileExplorer.Wpf.Views
 {
@@ -27,6 +28,23 @@ namespace MvxFileExplorer.Wpf.Views
         public ChartView()
         {
             InitializeComponent();
+
+            /*SfChart chart = new SfChart();
+            ViewModel viewModel = new ViewModel();
+            chart.DataContext = viewModel;
+            chart.Header = "Weight Report";
+            chart.Legend = new ChartLegend();
+
+            // Defining the PieSeries with adornments.
+            PieSeries series = new PieSeries();
+            series.XBindingPath = "Name";
+            series.YBindingPath = "Weight";
+            series.ItemsSource = viewModel.Data;
+            series.AdornmentsInfo = new ChartAdornmentInfo()
+            {
+                ShowLabel = true
+            };
+            chart.Series.Add(series);*/
         }
     }
 }
