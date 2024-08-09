@@ -65,28 +65,21 @@ namespace MvxFileExplorer.Core.ViewModels
 
             FileTypeSizes = CountFileTypes(directoryItemModel.Path);
 
-            PieChartData = new ObservableCollection<PieChartData>
-            {
-                new PieChartData { Title = "Maria", Value = 3 },
-                new PieChartData { Title = "Charles", Value = 4 },
-                new PieChartData { Title = "Frida", Value = 6 },
-                new PieChartData { Title = "Frederic", Value = 2 }
-            };
+            FulfillPieChartData();
         }
 
-        public ChartViewModel()
+        private void FulfillPieChartData()
         {
-            _directoryItemModel = new DirectoryItemModel("C:\\", "C:\\");
+            PieChartData = new ObservableCollection<PieChartData>();
 
-            NavigateHomeCommand = new NavigateMainCommand(new NavigationStore());
-
-            PieChartData = new ObservableCollection<PieChartData>
+            foreach (var fileTypeSize in FileTypeSizes)
             {
-                new PieChartData { Title = "Maria", Value = 3 },
-                new PieChartData { Title = "Charles", Value = 4 },
-                new PieChartData { Title = "Frida", Value = 6 },
-                new PieChartData { Title = "Frederic", Value = 2 }
-            };
+                PieChartData.Add(new PieChartData
+                {
+                    Title = fileTypeSize.Key,
+                    Value = fileTypeSize.Value
+                });
+            }
         }
 
         private Dictionary<string, long> CountFileTypes(string directoryPath)
@@ -99,16 +92,17 @@ namespace MvxFileExplorer.Core.ViewModels
                 { "Others", 0 }
             };
 
-            CountFileSizesRecursive("C:\\Users\\ydzys\\Pictures\\Screenshots", fileTypeCounts);
+            CountFileSizesParallel(directoryPath, fileTypeCounts);
 
             return fileTypeCounts;
         }
 
-        private void CountFileSizesRecursive(string directoryPath, Dictionary<string, long> fileTypeSizes)
+        private void CountFileSizesParallel(string directoryPath, Dictionary<string, long> fileTypeSizes)
         {
             try
             {
-                foreach (var file in Directory.GetFiles(directoryPath))
+                var files = Directory.GetFiles(directoryPath);
+                Parallel.ForEach(files, file =>
                 {
                     var extension = Path.GetExtension(file);
                     var fileInfo = new FileInfo(file);
@@ -116,22 +110,31 @@ namespace MvxFileExplorer.Core.ViewModels
 
                     if (FileTypeMappings.TryGetValue(extension, out var fileType))
                     {
-                        fileTypeSizes[fileType] += fileSize;
+                        lock (fileTypeSizes)
+                        {
+                            fileTypeSizes[fileType] += fileSize;
+                        }
                     }
                     else
                     {
-                        fileTypeSizes["Others"] += fileSize;
+                        lock (fileTypeSizes)
+                        {
+                            fileTypeSizes["Others"] += fileSize;
+                        }
                     }
-                }
+                });
 
-                foreach (var subDirectory in Directory.GetDirectories(directoryPath))
+                var subDirectories = Directory.GetDirectories(directoryPath);
+                Parallel.ForEach(subDirectories, subDirectory =>
                 {
-                    CountFileSizesRecursive(subDirectory, fileTypeSizes);
-                }
+                    CountFileSizesParallel(subDirectory, fileTypeSizes);
+                });
             }
             catch (UnauthorizedAccessException)
             {
+                // Ігнорувати та продовжити
             }
         }
+
     }
 }

@@ -16,27 +16,19 @@
     <Grid>
         
         <Grid.RowDefinitions>
-            <!--<RowDefinition Height="15"></RowDefinition>-->
-            <!--<RowDefinition Height="auto"></RowDefinition>-->
+            <RowDefinition Height="15"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <!--<RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="15"></RowDefinition>-->
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="15"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <!--<ColumnDefinition Width="15"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>-->
+            <ColumnDefinition Width="15"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <!--<ColumnDefinition Width="15"></ColumnDefinition>-->
+            <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <chart:SfChart Header="Chart" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3" MinWidth="500" MinHeight="500">
-
-            <!--Setting DataContext for SfChart-->
-            <chart:SfChart.DataContext>
-                <viewmodels:ChartViewModel/>
-            </chart:SfChart.DataContext>
+        <chart:SfChart Header="Chart" Grid.Row="1" Grid.Column="1" MinWidth="300" MinHeight="300">
 
             <!--Adding Legend to the SfChart-->
             <chart:SfChart.Legend>
@@ -61,6 +53,10 @@
                   YBindingPath="Value"/>
 
         </chart:SfChart>
+
+        <Button Content="Go Back" Command="{Binding NavigateHomeCommand}" CommandParameter="{Binding }"
+                Style="{StaticResource TransparentButtonBorderBlue}"
+                Grid.Row="2" Grid.Column="1" MaxWidth="200" MinHeight="50"></Button>
 
     </Grid>
 </views:MvxWpfView>
