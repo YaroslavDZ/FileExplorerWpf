@@ -29,7 +29,7 @@
             <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Row="1" Width="300" Grid.Column="1" Text="Hello" FontSize="18"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource SearchBoxStyle}" Text="Hello"></TextBox>
 
         <ListView x:Name="ListViewItem" Grid.Row="3" Grid.ColumnSpan="1" Width="300" Grid.RowSpan="2" Grid.Column="1"
                   ItemsSource="{Binding Items, Mode=TwoWay}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectedValue="{Binding SelectedItem}">
