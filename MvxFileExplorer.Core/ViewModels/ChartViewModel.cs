@@ -97,6 +97,11 @@ namespace MvxFileExplorer.Core.ViewModels
             return fileTypeCounts;
         }
 
+        private void ConvertToKilobytes(Dictionary<string, long> fileTypeSizes)
+        {
+
+        }
+
         private void CountFileSizesParallel(string directoryPath, Dictionary<string, long> fileTypeSizes)
         {
             try
@@ -106,20 +111,20 @@ namespace MvxFileExplorer.Core.ViewModels
                 {
                     var extension = Path.GetExtension(file);
                     var fileInfo = new FileInfo(file);
-                    var fileSize = fileInfo.Length;
+                    var fileSizeInKiloBytes = fileInfo.Length / 1000;
 
                     if (FileTypeMappings.TryGetValue(extension, out var fileType))
                     {
                         lock (fileTypeSizes)
                         {
-                            fileTypeSizes[fileType] += fileSize;
+                            fileTypeSizes[fileType] += fileSizeInKiloBytes;
                         }
                     }
                     else
                     {
                         lock (fileTypeSizes)
                         {
-                            fileTypeSizes["Others"] += fileSize;
+                            fileTypeSizes["Others"] += fileSizeInKiloBytes;
                         }
                     }
                 });
@@ -132,7 +137,7 @@ namespace MvxFileExplorer.Core.ViewModels
             }
             catch (UnauthorizedAccessException)
             {
-                // Ігнорувати та продовжити
+                // ignore and continue
             }
         }
 

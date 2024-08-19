@@ -36,14 +36,14 @@
             <Button Content="&lt;" Command="{Binding MoveBackCommand}" CommandParameter="{Binding }" Style="{StaticResource TransparentButtonBorderBlue}"></Button>
             <Button Content="&gt;" Command="{Binding MoveForwardCommand}" CommandParameter="{Binding }" Style="{StaticResource TransparentButtonBorderBlue}"></Button>
 
-            <TextBlock Text="{Binding Path, Mode=OneWay}" Style="{StaticResource TextBlockStyle}">
+            <TextBlock Text="{Binding Path, Mode=TwoWay}" Style="{StaticResource TextBlockStyle}">
             </TextBlock>
         </StackPanel>
 
         <ListView x:Name="ListViewItem" Grid.Row="2" Grid.Column="3"
           ItemsSource="{Binding FileViewItems, Mode=TwoWay}" 
           SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
-          SelectedValue="{Binding SelectedItem}" MaxHeight="540">
+          SelectedValue="{Binding SelectedItem,  Mode=TwoWay}" MaxHeight="540">
 
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="MouseDoubleClick">

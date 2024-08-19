@@ -28,23 +28,6 @@ namespace MvxFileExplorer.Wpf.Views
         public ChartView()
         {
             InitializeComponent();
-
-            /*SfChart chart = new SfChart();
-            ViewModel viewModel = new ViewModel();
-            chart.DataContext = viewModel;
-            chart.Header = "Weight Report";
-            chart.Legend = new ChartLegend();
-
-            // Defining the PieSeries with adornments.
-            PieSeries series = new PieSeries();
-            series.XBindingPath = "Name";
-            series.YBindingPath = "Weight";
-            series.ItemsSource = viewModel.Data;
-            series.AdornmentsInfo = new ChartAdornmentInfo()
-            {
-                ShowLabel = true
-            };
-            chart.Series.Add(series);*/
         }
     }
 }

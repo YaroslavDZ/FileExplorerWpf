@@ -46,11 +46,21 @@
             </chart:SfChart.SecondaryAxis>
 
             <!--Initializing the series for SfChart-->
-            <chart:PieSeries  XBindingPath="Title" 
+            <chart:PieSeries XBindingPath="Title" 
 
                  ItemsSource="{Binding PieChartData}" 
 
-                  YBindingPath="Value"/>
+                  YBindingPath="Value">
+
+                <chart:PieSeries.AdornmentsInfo>
+                    <chart:ChartAdornmentInfo ShowConnectorLine="True" 
+                                              ConnectorHeight="80" 
+                                              ShowLabel="True" 
+                                              SegmentLabelContent="LabelContentPath">
+                    </chart:ChartAdornmentInfo>
+                </chart:PieSeries.AdornmentsInfo>
+                
+            </chart:PieSeries>
 
         </chart:SfChart>
 
