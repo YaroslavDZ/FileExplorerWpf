@@ -21,7 +21,7 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
     <PackageReference Include="MvvmCross.Platforms.Wpf" Version="7.0.0" />
     <PackageReference Include="SimpleModal.WPF" Version="1.0.0" />
-    <PackageReference Include="Syncfusion.SfChart.WPF" Version="26.2.8" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="26.2.9" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="26.2.8" />
   </ItemGroup>
 
