@@ -97,9 +97,9 @@
                         <Border x:Name="TextBoxBorder"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            Padding="{TemplateBinding Padding}">
-                            <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0"
-                                     Foreground="{TemplateBinding Foreground}" MaxWidth="250"/>
+                            Width="275">
+                            <TextBox Padding="{TemplateBinding Padding}" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0"
+                                     Foreground="{TemplateBinding Foreground}" Width="275"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
