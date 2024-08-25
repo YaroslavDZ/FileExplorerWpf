@@ -29,7 +29,21 @@
             <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource SearchBoxStyle}" Text="Hello"></TextBox>
+        <!--<TextBox x:Name="SearchTextBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource SearchBoxStyle}" Text="{Binding SearchTextFilling, Mode=TwoWay}">
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="TextChanged">
+                        <b:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding SearchTextFilling}"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+        </TextBox>-->
+
+        <TextBox x:Name="SearchTextBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource SearchBoxStyle}" Text="{Binding SearchTextFilling, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="TextChanged">
+                    <b:InvokeCommandAction Command="{Binding SearchCommand}" CommandParameter="{Binding SearchTextFilling}"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+        </TextBox>
 
         <ListView x:Name="ListViewItem" Grid.Row="3" Grid.ColumnSpan="1" Width="300" Grid.RowSpan="2" Grid.Column="1"
                   ItemsSource="{Binding Items, Mode=TwoWay}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectedValue="{Binding SelectedItem}">

@@ -21,6 +21,8 @@ namespace MvxFileExplorer.Core.Models
 
         public ItemType ItemType { get; set; }
 
+        public string SearchTextFilling { get; set; } = string.Empty;
+
         public DirectoryItemModel PreviousNode { get; set; }
 
         public DirectoryItemModel NextNode { get; set; }

@@ -91,6 +91,19 @@ namespace MvxFileExplorer.Core.ViewModels
             }
         }
 
+        public string SearchTextFilling
+        {
+            get => _directoryModel.SearchTextFilling;
+            set
+            {
+                if (_directoryModel.SearchTextFilling != value)
+                {
+                    _directoryModel.SearchTextFilling = value;
+                    RaisePropertyChanged(() => SearchTextFilling);
+                }
+            }
+        }
+
         public MvxObservableCollection<DirectoryItemModel> Items { get; set; } = new MvxObservableCollection<DirectoryItemModel>();
 
         public MvxObservableCollection<DirectoryItemModel> FileViewItems { get; set; } = new MvxObservableCollection<DirectoryItemModel>();
@@ -100,6 +113,8 @@ namespace MvxFileExplorer.Core.ViewModels
         public RelayCommand MoveBackCommand { get; }
 
         public RelayCommand MoveForwardCommand { get; }
+
+        public ICommand SearchCommand { get; }
 
         public ICommand NavigateChartCommand { get; private set; }
 
@@ -113,6 +128,7 @@ namespace MvxFileExplorer.Core.ViewModels
 
             MoveBackCommand = new RelayCommand(OnMoveBack, OnCanMoveBack);
             MoveForwardCommand = new RelayCommand(OnMoveForward, OnCanMoveForward);
+            SearchCommand = new RelayCommand(Search);
 
             NavigateChartCommand = new NavigateChartCommand(navigationStore, _directoryModel);
 
@@ -128,10 +144,9 @@ namespace MvxFileExplorer.Core.ViewModels
         {
             MoveBackCommand?.RaiseCanExecuteChanged();
             MoveForwardCommand?.RaiseCanExecuteChanged();
-
         }
 
-        public void OnMoveBack(object parameter)
+        private void OnMoveBack(object parameter)
         {
             _directoryHistory.MoveBack();
 
@@ -143,9 +158,9 @@ namespace MvxFileExplorer.Core.ViewModels
             _directoryService.OpenDirectory(FileViewItems, Path);
         }
 
-        public bool OnCanMoveBack(object obj) => _directoryHistory.CanMoveBack;
+        private bool OnCanMoveBack(object obj) => _directoryHistory.CanMoveBack;
 
-        public void OnMoveForward(object parameter)
+        private void OnMoveForward(object parameter)
         {
             _directoryHistory.MoveForward();
 
@@ -157,7 +172,16 @@ namespace MvxFileExplorer.Core.ViewModels
             _directoryService.OpenDirectory(FileViewItems, Path);
         }
 
-        public bool OnCanMoveForward(object obj) => _directoryHistory.CanMoveForward;
+        private bool OnCanMoveForward(object obj) => _directoryHistory.CanMoveForward;
+
+        private void Search(object parameter)
+        {
+            if (parameter is string name)
+            {
+                _directoryService.SearchItemsByName(name, Items);
+            }
+
+        }
 
         public void OpenItem(object parameter)
         {

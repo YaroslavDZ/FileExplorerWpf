@@ -7,6 +7,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace MvxFileExplorer.Core.Services
 {
@@ -45,6 +48,64 @@ namespace MvxFileExplorer.Core.Services
             {
                 items.Add(new DirectoryItemModel(logicalDrive, logicalDrive) { Path = logicalDrive, Name = logicalDrive, ItemType = GetItemType(logicalDrive) });
             }
+        }
+
+        public void SearchItemsByName(string name, MvxObservableCollection<DirectoryItemModel> items)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return;
+            }
+
+            items.Clear();
+
+            foreach (var logicalDrive in Directory.GetLogicalDrives())
+            {
+                items.AddRange(SearchMatchItemsRecursively("C:\\Users\\ydzys\\Pictures\\Screenshots", name));
+            }
+        }
+
+        private MvxObservableCollection<DirectoryItemModel> SearchMatchItemsRecursively(string path, string name)
+        {
+            MvxObservableCollection<DirectoryItemModel> items = new MvxObservableCollection<DirectoryItemModel>();
+            try
+            {
+                var files = Directory.EnumerateFiles(path);
+                Parallel.ForEach(files, file =>
+                {
+                    var fileInfo = new FileInfo(file);
+
+                    if (fileInfo.FullName.Contains(name))
+                    {
+                        lock (items)
+                        {
+                            items.Add(new DirectoryItemModel(fileInfo.FullName, fileInfo.FullName));
+                        }
+                    }
+                });
+
+                var subDirectories = Directory.GetDirectories(path);
+                Parallel.ForEach(subDirectories, subDirectory =>
+                {
+                    var directoryInfo = new DirectoryInfo(subDirectory);
+                    if (directoryInfo.FullName.Contains(name))
+                    {
+                        lock (items)
+                        {
+                            items.Add(new DirectoryItemModel(directoryInfo.FullName, directoryInfo.FullName));
+                        }
+                    } else
+                    {
+                        SearchMatchItemsRecursively(directoryInfo.FullName, name);
+                    }
+                });
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // ignore and continue
+            }
+
+            return items;
         }
 
         private bool IsDrive(string path)

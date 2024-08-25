@@ -97,11 +97,6 @@ namespace MvxFileExplorer.Core.ViewModels
             return fileTypeCounts;
         }
 
-        private void ConvertToKilobytes(Dictionary<string, long> fileTypeSizes)
-        {
-
-        }
-
         private void CountFileSizesParallel(string directoryPath, Dictionary<string, long> fileTypeSizes)
         {
             try
@@ -140,6 +135,5 @@ namespace MvxFileExplorer.Core.ViewModels
                 // ignore and continue
             }
         }
-
     }
 }
